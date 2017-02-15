@@ -206,14 +206,9 @@ function _usecard(PrePaidCardID, purchasedamount, userID, callback) {
 }
 
 
-/**
- * Adds two numbers.
- */
+
 function _buycard(coffeeCode, cardID, userID, callback) {
 
-    /**
-     * Adds two numbers.
-     */
 
     var uses = 0
     var usesoncard = 0
@@ -345,6 +340,7 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         }
     })
 }
+
 
 
 
