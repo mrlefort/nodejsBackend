@@ -462,6 +462,76 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
 
 //COFFEESHOPUSER ENDS HERE
 
+
+function _createNewPremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.createPremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _deletePremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.deletePremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _putPremiumSubscriptionSetToCoffeeReady(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.putPremiumSubscriptionSetToCoffeeReady(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _putPremiumSubscriptionSetToCoffeeNotReady(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.putPremiumSubscriptionSetToCoffeeNotReady(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _getPremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.getPremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _getAllPremiumSubscriptions(callback){
+    premium.getAllPremiumSubscriptions(function (data) {
+        callback(data)
+    })
+}
+
+
+
+
 module.exports = {
     createUser: _createUser,
     createRole: _createRole,
@@ -496,5 +566,11 @@ module.exports = {
     putRole: _putRole,
     getRole: _getRole,
     getAllRoles: _getAllRoles,
-    coffeeBought: _coffeeBought
+    coffeeBought: _coffeeBought,
+    createNewPremiumSubscription: _createNewPremiumSubscription,
+    deletePremiumSubscription: _deletePremiumSubscription,
+    putPremiumSubscriptionSetToCoffeeReady: _putPremiumSubscriptionSetToCoffeeReady,
+    putPremiumSubscriptionSetToCoffeeNotReady: _putPremiumSubscriptionSetToCoffeeNotReady,
+    getPremiumSubscription: _getPremiumSubscription,
+    getAllPremiumSubscriptions: _getAllPremiumSubscriptions
 }; // Export Module

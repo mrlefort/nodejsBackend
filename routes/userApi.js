@@ -308,5 +308,90 @@ router.post("/user/logout", function (req, res) {
 
 //Steffen userLogin, userAuth og userLogout slut
 
+router.post("/user/createPremiumSubscription", function (req, res) {
+    facade.createNewPremiumSubscription(req.body.userId, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.delete("/user/deletePremiumSubscription", function (req, res) {
+    facade.deletePremiumSubscription(req.body.userId, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.get("/user/getPremiumSubscription", function (req, res) {
+    facade.getPremiumSubscription(req.body.userId, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.write(JSON.stringify(status));
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.get("/user/getAllPremiumSubscriptions", function (req, res) {
+    if (req.decoded.data.roleId === 1) //1 = admin
+    {
+        facade.getAllPremiumSubscriptions(req.body.userId, function (status) {
+                if (status !== false) {
+                    res.writeHead(200, {"accessToken": req.headers.accessToken});
+                    res.write(JSON.stringify(status));
+                    res.status(200).send();
+                }
+                else {
+                    res.status(500).send();
+                }
+            }
+        )
+    } else {
+        res.status(401).send();
+    }
+});
+
+router.put("/user/setPremiumSubscriptionToCoffeeNotReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeNotReady(req.body.userId, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.put("/user/setPremiumSubscriptionToCoffeeReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeReady(req.body.userId, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
 
 module.exports = router;

@@ -83,7 +83,17 @@ function _valNumber(number, callback) {
         callback(false)
     } else callback(true)
 }
+
+function _valPremiumSubscription(userId, callback){
+    if (userId == null) {
+        //return 'Role not defined'
+        callback(false)
+    } else callback(true)
+}
+
+
 module.exports = {
     valOrderItem: _valOrderItem, valOrder: _valOrder, valID: _valID, valCoffeeshop: _valCoffeeshop,
-    valEmail: _valEmail, valUser: _valUser, valRole: _valRole, valBrand: _valBrand, valNumber: _valNumber
+    valEmail: _valEmail, valUser: _valUser, valRole: _valRole, valBrand: _valBrand, valNumber: _valNumber,
+    valPremiumSubscription: _valPremiumSubscription
 }
