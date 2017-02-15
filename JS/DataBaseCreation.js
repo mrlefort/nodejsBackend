@@ -1,16 +1,16 @@
 var Sequelize = require('sequelize'); // Requires
 
-var sequelize = new Sequelize('keebintest', 'adminsbRGiAF', 'UTcZZcP--I3P', {
-    host: "127.9.132.2",//process.env.OPENSHIFT_keebintest_DB_HOST,
-    port: process.env.OPENSHIFT_keebintest_DB_PORT,
-    dialect: 'mysql'
-}); // Establishing connection to the MySQL database schema called keebin
-
-// var sequelize = new Sequelize('keebin', 'keebin', '1234', {
-//     host: "localhost",
-//     port: 3306,
+// var sequelize = new Sequelize('keebintest', 'adminsbRGiAF', 'UTcZZcP--I3P', {
+//     host: "127.9.132.2",//process.env.OPENSHIFT_keebintest_DB_HOST,
+//     port: process.env.OPENSHIFT_keebintest_DB_PORT,
 //     dialect: 'mysql'
 // }); // Establishing connection to the MySQL database schema called keebin
+
+var sequelize = new Sequelize('keebin', 'keebin', '1234', {
+    host: "localhost",
+    port: 3306,
+    dialect: 'mysql'
+}); // Establishing connection to the MySQL database schema called keebin
 
 sequelize.authenticate().then(function (err) {
     if (err) {
