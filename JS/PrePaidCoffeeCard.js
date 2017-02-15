@@ -15,14 +15,14 @@ var prePaidCoffeeCard = db.PrePaidCoffeeCard();
 //
 // })
 
-buycard(12, 1,2, function(data)
+buycard(12, 1, 2, function (data)
 {
     console.log(data)
 });
 
 
 // der skal forbindelse mellem coffeecode og
-function buycard (coffeeCode, cardID, userID, callback)
+function buycard(coffeeCode, cardID, userID, callback)
 {
     var uses = 0
     var usesoncard = 0
@@ -30,28 +30,35 @@ function buycard (coffeeCode, cardID, userID, callback)
     this.userID = userID;
 
 
-    prePaidCard.find({where: {PrePaidCoffeeCardId: cardID, userId: userID}}).then(function (data) { // we have run the callback inside the .then
+    prePaidCard.find({where: {PrePaidCoffeeCardId: cardID, userId: userID}}).then(function (data)
+    { // we have run the callback inside the .then
 
-        if(data !== null) {
+        if (data !== null)
+        {
 
             uses = data.usesleft
-            prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
+            prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1)
+            { // we have run the callback inside the .then
 
                 usesoncard = data1.count
-                if (data1 !== null) {
+                if (data1 !== null)
+                {
                     // logic if found
 
-                    return sequelize.transaction(function (t) {
+                    return sequelize.transaction(function (t)
+                    {
 
                         // chain all your queries here. make sure you return them.
                         return data.updateAttributes({
-                            usesleft : uses + usesoncard
+                            usesleft: uses + usesoncard
 
                         }, {transaction: t})
 
-                    }).then(function (result) {
+                    }).then(function (result)
+                    {
                         callback("Tilføjet " + usesoncard + "til brugeren med et nyt antal klip: " + (parseInt(uses) + parseInt(usesoncard)))
-                    }).catch(function (err) {
+                    }).catch(function (err)
+                    {
                         callback("noget gik galt... prøv igen")
                         console.log("her er fejl fra PrepaidCoffeeCard.js update.. --- " + err)
 
@@ -75,23 +82,30 @@ function buycard (coffeeCode, cardID, userID, callback)
         {
             // logic if it has to be created.
 
-            user.find({where: {id: userID}}).then(function (data) { // we have run the callback inside the .then
+            user.find({where: {id: userID}}).then(function (data)
+            { // we have run the callback inside the .then
 
-                if(data !== null) {
+                if (data !== null)
+                {
 
-                    prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
+                    prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1)
+                    { // we have run the callback inside the .then
 
-                        if(data1 !== null) {
-                            return conn.transaction(function (t) {
+                        if (data1 !== null)
+                        {
+                            return conn.transaction(function (t)
+                            {
                                 return prePaidCard.create({
                                     PrePaidCoffeeCardId: cardID,
                                     userId: userID,
                                     usesleft: data1.count
                                 }, {transaction: t})
 
-                            }).then(function (result) {
+                            }).then(function (result)
+                            {
                                 callback("Oprettet nyt kort til brugeren.")
-                            }).catch(function (err) {
+                            }).catch(function (err)
+                            {
                                 console.log("something went wrong")
                             })
                         }
@@ -113,5 +127,4 @@ function buycard (coffeeCode, cardID, userID, callback)
     })
 }
 
-module.exports = {
-};
+module.exports = {};

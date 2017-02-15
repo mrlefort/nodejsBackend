@@ -13,6 +13,7 @@ router.get("/picture/:name", function (req, res, next)
         root: __dirname + '/pics/'
     }
     console.log("i api");
+    res.writeHead(200, {"accessToken": req.headers.accessToken});
     res.sendFile(req.params.name + ".png",options, function (err)
     {
         console.log("i funk");
