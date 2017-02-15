@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by mrlef on 11/8/2016.
  */
 var express = require('express');
@@ -13,6 +13,7 @@ var jwt = require('jsonwebtoken');
 router.post("/", function (req, res)
     {
 
+console.log("hej fra update")
         //her skal vi tjekke om der er en accessToken, eller en refreshToken og sammenligner den med vores secretKey.
 
 
