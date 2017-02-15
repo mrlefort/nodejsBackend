@@ -10,11 +10,13 @@ var bcrypt = require('bcryptjs');
 router.get("/picture/:name", function (req, res, next)
 {
     var options = {
-        root: __dirname + '/pics/'
+        root: __dirname + '/pics/',
+        headers: {
+            "accessToken": req.headers.accessToken
+        }
     }
     console.log("i api");
-    res.writeHead(200, {"accessToken": req.headers.accessToken});
-    res.sendFile(req.params.name + ".png",options, function (err)
+    res.sendFile(req.params.name + ".png", options, function (err)
     {
         console.log("i funk");
         if (err)
