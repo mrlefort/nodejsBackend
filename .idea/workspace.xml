@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/DataBaseFacade.js" afterPath="$PROJECT_DIR$/JS/DataBaseFacade.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/PrePaidCoffeeCard.js" afterPath="$PROJECT_DIR$/JS/PrePaidCoffeeCard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JS/Validator.js" afterPath="$PROJECT_DIR$/JS/Validator.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/coffeeApi.js" afterPath="$PROJECT_DIR$/routes/coffeeApi.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -30,78 +29,18 @@
       <file leaf-file-name="DataBaseFacade.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/DataBaseFacade.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1706">
-              <caret line="359" column="0" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
+            <state relative-caret-position="224">
+              <caret line="466" column="13" selection-start-line="466" selection-start-column="13" selection-end-line="466" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="coffeeApi.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="coffeeApi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/coffeeApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1876">
-              <caret line="379" column="5" selection-start-line="379" selection-start-column="5" selection-end-line="379" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/User.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Validator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/Validator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="90" column="29" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataBaseCreation.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/DataBaseCreation.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="862">
-              <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="www" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/www">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrderItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/JS/OrderItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2686">
-              <caret line="22" column="10" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="10" />
+            <state relative-caret-position="211">
+              <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -110,18 +49,12 @@
       <file leaf-file-name="PrePaidCoffeeCard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/JS/PrePaidCoffeeCard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            <state relative-caret-position="1190">
+              <caret line="333" column="58" selection-start-line="333" selection-start-column="42" selection-end-line="333" selection-end-column="58" />
               <folding>
                 <element signature="n#!!block;n#_getmycards#0" expanded="false" />
                 <element signature="n#!!block;n#_getstorecards#0" expanded="false" />
-                <element signature="n#!!block;n#_deletecard#0" expanded="false" />
-                <element signature="e#2051#2654#0" expanded="false" />
                 <element signature="n#!!block;n#_updatestorecard#0" expanded="false" />
-                <element signature="n#!!block;n#_newstorecard#0" expanded="false" />
-                <element signature="e#3582#4224#0" expanded="false" />
-                <element signature="n#!!block;n#_usecard#0" expanded="false" />
-                <element signature="n#!!block;n#_buycard#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -155,8 +88,8 @@
         <option value="$PROJECT_DIR$/routes/login.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/JS/DataBaseCreation.js" />
-        <option value="$PROJECT_DIR$/JS/PrePaidCoffeeCard.js" />
         <option value="$PROJECT_DIR$/JS/Validator.js" />
+        <option value="$PROJECT_DIR$/JS/PrePaidCoffeeCard.js" />
         <option value="$PROJECT_DIR$/JS/DataBaseFacade.js" />
         <option value="$PROJECT_DIR$/routes/coffeeApi.js" />
       </list>
@@ -287,7 +220,7 @@
       <recent name="C:\Users\kaspe\Desktop\PRAKTIK\backEndOS\keebintest\routes" />
     </key>
   </component>
-  <component name="RunManager" selected="Node.js.www">
+  <component name="RunManager" selected="Node.js.coffeeApi.js">
     <configuration default="false" name="www" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="www" working-dir="$PROJECT_DIR$/bin">
       <method />
     </configuration>
@@ -298,6 +231,9 @@
       <method />
     </configuration>
     <configuration default="false" name="Validator.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="Validator.js" working-dir="$PROJECT_DIR$/JS">
+      <method />
+    </configuration>
+    <configuration default="false" name="coffeeApi.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="project" path-to-js-file="coffeeApi.js" working-dir="$PROJECT_DIR$/routes">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -353,18 +289,20 @@
       <recursive>false</recursive>
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Node.js.www" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.DataBaseCreation.js" />
       <item index="2" class="java.lang.String" itemvalue="Node.js.PrePaidCoffeeCard.js" />
       <item index="3" class="java.lang.String" itemvalue="Node.js.Validator.js" />
+      <item index="4" class="java.lang.String" itemvalue="Node.js.coffeeApi.js" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Node.js.www" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.Validator.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.PrePaidCoffeeCard.js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.DataBaseCreation.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.coffeeApi.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.Validator.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.PrePaidCoffeeCard.js" />
+        <item index="4" class="java.lang.String" itemvalue="Node.js.DataBaseCreation.js" />
       </list>
     </recent_temporary>
   </component>
@@ -384,12 +322,12 @@
       <workItem from="1487064725188" duration="2878000" />
       <workItem from="1487144470877" duration="14711000" />
       <workItem from="1487168205610" duration="745000" />
-      <workItem from="1487229286286" duration="4760000" />
+      <workItem from="1487229286286" duration="7351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23094000" />
+    <option name="totallyTimeSpent" value="25685000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -409,9 +347,9 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33694476" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3997833" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -515,13 +453,7 @@
           <folding>
             <element signature="n#!!block;n#_getmycards#0" expanded="false" />
             <element signature="n#!!block;n#_getstorecards#0" expanded="false" />
-            <element signature="n#!!block;n#_deletecard#0" expanded="false" />
-            <element signature="e#2051#2654#0" expanded="false" />
             <element signature="n#!!block;n#_updatestorecard#0" expanded="false" />
-            <element signature="n#!!block;n#_newstorecard#0" expanded="false" />
-            <element signature="e#3582#4224#0" expanded="false" />
-            <element signature="n#!!block;n#_usecard#0" expanded="false" />
-            <element signature="n#!!block;n#_buycard#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -605,13 +537,7 @@
           <folding>
             <element signature="n#!!block;n#_getmycards#0" expanded="false" />
             <element signature="n#!!block;n#_getstorecards#0" expanded="false" />
-            <element signature="n#!!block;n#_deletecard#0" expanded="false" />
-            <element signature="e#2051#2654#0" expanded="false" />
             <element signature="n#!!block;n#_updatestorecard#0" expanded="false" />
-            <element signature="n#!!block;n#_newstorecard#0" expanded="false" />
-            <element signature="e#3582#4224#0" expanded="false" />
-            <element signature="n#!!block;n#_usecard#0" expanded="false" />
-            <element signature="n#!!block;n#_buycard#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -735,32 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/JS/OrderItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/JS/PrePaidCoffeeCard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!block;n#_getmycards#0" expanded="false" />
-            <element signature="n#!!block;n#_getstorecards#0" expanded="false" />
-            <element signature="n#!!block;n#_deletecard#0" expanded="false" />
-            <element signature="e#2051#2654#0" expanded="false" />
-            <element signature="n#!!block;n#_updatestorecard#0" expanded="false" />
-            <element signature="n#!!block;n#_newstorecard#0" expanded="false" />
-            <element signature="e#3582#4224#0" expanded="false" />
-            <element signature="n#!!block;n#_usecard#0" expanded="false" />
-            <element signature="n#!!block;n#_buycard#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JS/DataBaseCreation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="862">
@@ -777,26 +677,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2836">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/OrderItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/JS/PrePaidCoffeeCard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1190">
+          <caret line="333" column="58" selection-start-line="333" selection-start-column="42" selection-end-line="333" selection-end-column="58" />
+          <folding>
+            <element signature="n#!!block;n#_getmycards#0" expanded="false" />
+            <element signature="n#!!block;n#_getstorecards#0" expanded="false" />
+            <element signature="n#!!block;n#_updatestorecard#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/JS/DataBaseFacade.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1706">
-          <caret line="359" column="0" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
+        <state relative-caret-position="224">
+          <caret line="466" column="13" selection-start-line="466" selection-start-column="13" selection-end-line="466" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/coffeeApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1876">
-          <caret line="379" column="5" selection-start-line="379" selection-start-column="5" selection-end-line="379" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2686">
-          <caret line="22" column="10" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="10" />
+        <state relative-caret-position="211">
+          <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
           <folding />
         </state>
       </provider>

@@ -6,7 +6,7 @@ var router = express.Router();
 var facade = require("../JS/DataBaseFacade.js");
 var bcrypt = require('bcryptjs');
 
-// skal testes
+// virker
 router.delete("/klippekort/:CoffeeBrandID", function (req, res) {
     if (req.decoded.data.roleId === 1) {
         console.log("param: " + req.params.CoffeeBrandID)
@@ -65,7 +65,7 @@ router.delete("/shop/:CoffeeShopEmail", function (req, res) {
     }
 });
 
-// skal testes
+// virker
 router.post("/klippekort/new", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
 
@@ -87,10 +87,10 @@ router.post("/klippekort/new", function (req, res, next) {
     }
 );
 
-// skal testes
+// virker
 router.post("/klippekortvariation/new", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
-            facade.newstorecard(req.body.price, req.body.name, req.body.count, req.body.brandId, function (status) {
+            facade.newstorecard(req.body.price, req.body.name, req.body.uses, req.body.brandId, function (status) {
                     if (status === true) {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
@@ -171,12 +171,10 @@ router.post("/shopuser/new", function (req, res, next) {
 );
 
 
-/*
- facade.getstorecards()  // get
- */
 
-// skal testes
-router.get("/mineklippekort/:coffeeBrandId", function (req, res, next) {
+
+// virker
+router.get("/klippekortvariation/:coffeeBrandId", function (req, res, next) {
         facade.getstorecards(req.params.coffeeBrandId, function (data) {
             if (data !== false) {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
@@ -190,7 +188,7 @@ router.get("/mineklippekort/:coffeeBrandId", function (req, res, next) {
     }
 );
 
-// skal testes
+// Virker.
 router.get("/mineklippekort/:userId", function (req, res, next) {
         facade.getmycards(req.params.userId, function (data) {
             if (data !== false) {
@@ -286,13 +284,12 @@ router.get("/allshopusers/:shopID", function (req, res, next) {
 
 
 
-// den her skal testes
+// virker
 router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
             facade.updatestorecard(req.params.storeCardId, req.body.newPrice, req.body.newName, req.body.newCount, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
-                        res.write(JSON.stringify(status));
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
@@ -310,13 +307,12 @@ router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
     }
 );
 
-// den her skal testes
+// virker ikke...
 router.put("/klippekort/:prePaidCardId", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
             facade.usecard(req.params.prePaidCardId, req.body.purhcasedAmount, req.body.userId, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
-                        res.write(JSON.stringify(status));
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
@@ -341,7 +337,6 @@ router.put("/brand/:brandId", function (req, res, next) { // den her havde bare 
             facade.putCoffeeBrand(req.params.brandId, req.body.brandName, req.body.numberOfCoffeeNeeded, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
-                        res.write(JSON.stringify(status));
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
@@ -366,7 +361,6 @@ router.put("/shop/:coffeeShopEmail", function (req, res, next) {
             console.log("her er status: " + status)
             if (status !== false) {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                res.write(JSON.stringify(status));
                 res.status(200).send();
             }
             if (status === false) {

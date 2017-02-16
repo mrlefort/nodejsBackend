@@ -586,7 +586,10 @@ function _deletestorecard(storecardID, callback)
     {
         if(data == true)
         {
-          klippekort.deletecard(storecardID)
+          klippekort.deletecard(storecardID, function(data)
+          {
+              callback(data)
+          })
         }
         else
         {

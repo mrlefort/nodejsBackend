@@ -161,14 +161,17 @@ function _newstorecard(price, name, count, brandID, callback)
                 }, {transaction: t})
 
             }).then(function (result) {
-                callback("Oprettet ny klippekorts variation.")
+                console.log("Oprettet ny klippekorts variation.")
+                callback(true)
             }).catch(function (err) {
-                callback("Kunne ikke oprette ny klippekorts variation")
+                console.log("Kunne ikke oprette ny klippekorts variation")
+                callback(false)
             })
         }
         else
         {
-           callback("dette kort eksistere allerede")
+            console.log("dette kort eksistere allerede")
+            console.log(false)
         }
     })
 
@@ -249,9 +252,11 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                                     }, {transaction: t})
 
                                 }).then(function (result) {
-                                    callback("Tilføjet " + usesoncard + "til brugeren med et nyt antal klip: " + (parseInt(uses) + parseInt(usesoncard)))
+                                    console.log("Tilføjet " + usesoncard + "til brugeren med et nyt antal klip: " + (parseInt(uses) + parseInt(usesoncard)))
+                                    callback(true)
                                 }).catch(function (err) {
-                                    callback("noget gik galt... prøv igen")
+                                    callback(false)
+                                    console.log("noget gik galt... prøv igen")
                                     console.log("her er fejl fra PrepaidCoffeeCard.js update.. --- " + err)
 
                                     // Transaction has been rolled back
@@ -266,9 +271,9 @@ function _buycard(coffeeCode, cardID, userID, callback) {
 
                             }
                             else {
-                                callback("der er ikke noget klippekort ")
-                                // burde aldrig komme herned.
-                                // logic if card is not present equalivant to the one bought.
+                                console.log("der er ikke noget klippekort ")
+                                callback(false)
+
                             }
                         })
 
@@ -296,18 +301,22 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                                                  }, {transaction: t})
 
                                              }).then(function (result) {
-                                                 callback("Oprettet nyt kort til brugeren.")
+                                                 callback(true)
+                                                 console.log("Oprettet nyt kort til brugeren.")
                                              }).catch(function (err) {
-                                                 callback("der gik noget galt i oprettelsen af kortet.")
+                                                 callback(false)
+                                                 console.log("der gik noget galt i oprettelsen af kortet.")
                                              })
                                          }
                                          else {
+                                             callback(false)
                                              console.log("no such card..")
                                              // logic if no store has such a card.
                                          }
                                      })
                                  }
                                  else {
+                                     callback(false)
                                      console.log("no user with the given ID")
                                      // logic for user to see.
 
@@ -315,11 +324,13 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                              })
                          }
                          else {
+                             callback(false)
                              console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
                          }
                      }
                     else
                          {
+                             callback(false)
                              console.log("intet klippekort med det id..")
                          }
                 })
@@ -334,6 +345,7 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         }
         else {
             console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
+            callback(false)
         }
     })
 }
