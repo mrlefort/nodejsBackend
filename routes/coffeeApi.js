@@ -6,6 +6,25 @@ var router = express.Router();
 var facade = require("../JS/DataBaseFacade.js");
 var bcrypt = require('bcryptjs');
 
+// virker
+router.delete("/klippekort/:CoffeeBrandID", function (req, res) {
+    if (req.decoded.data.roleId === 1) {
+        console.log("param: " + req.params.CoffeeBrandID)
+        facade.deletestorecard(req.params.CoffeeBrandID, function (status) {
+
+            if (status !== false) {
+                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        });
+    }
+    else {
+        res.status(401).send();
+    }
+});
 
 //Deletes a CoffeeBrand by ID -- Works
 router.delete("/brand/:CoffeeBrandID", function (req, res) {
@@ -46,6 +65,48 @@ router.delete("/shop/:CoffeeShopEmail", function (req, res) {
     }
 });
 
+// virker
+router.post("/klippekort/new", function (req, res, next) {
+        if (req.decoded.data.roleId === 1) {
+
+            facade.buycard(req.body.coffeeCode, req.body.storeCardId, req.body.userId, function (status) {
+                    if (status === true) {
+                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                        res.status(200).send();
+                    }
+                    else {
+                        res.status(500).send();
+                    }
+
+                }
+            );
+        }
+        else {
+            res.status(401).send();
+        }
+    }
+);
+
+// virker
+router.post("/klippekortvariation/new", function (req, res, next) {
+        if (req.decoded.data.roleId === 1) {
+            facade.newstorecard(req.body.price, req.body.name, req.body.uses, req.body.brandId, function (status) {
+                    if (status === true) {
+                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                        res.status(200).send();
+                    }
+                    else {
+                        res.status(500).send();
+                    }
+
+                }
+            );
+        }
+        else {
+            res.status(401).send();
+        }
+    }
+);
 
 //New Brand -- WORKS
 
@@ -91,6 +152,8 @@ router.post("/shop/new", function (req, res, next) {
     }
 );
 
+
+
 // WORKS -- takes the Email of a user and a shop.
 router.post("/shopuser/new", function (req, res, next) {
 
@@ -107,6 +170,38 @@ router.post("/shopuser/new", function (req, res, next) {
     }
 );
 
+
+
+
+// virker
+router.get("/klippekortvariation/:coffeeBrandId", function (req, res, next) {
+        facade.getstorecards(req.params.coffeeBrandId, function (data) {
+            if (data !== false) {
+                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+
+                res.end(JSON.stringify(data));
+            }
+            else {
+                res.status(500).send();
+            }
+        });
+    }
+);
+
+// Virker.
+router.get("/mineklippekort/:userId", function (req, res, next) {
+        facade.getmycards(req.params.userId, function (data) {
+            if (data !== false) {
+                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+
+                res.end(JSON.stringify(data));
+            }
+            else {
+                res.status(500).send();
+            }
+        });
+    }
+);
 
 //Get brand by brandID -- WORKS
 
@@ -186,14 +281,62 @@ router.get("/allshopusers/:shopID", function (req, res, next) {
     }
 });
 
-//Edit a brand expects the full input -- WORKS
 
-router.put("/brand/:brandId", function (req, res, next) {
+
+
+// virker
+router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
-            facade.putCoffeeBrand(req.params.brandId, brandName, req.body.numberOfCoffeeNeeded, function (status) {
+            facade.updatestorecard(req.params.storeCardId, req.body.newPrice, req.body.newName, req.body.newCount, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
-                        res.write(JSON.stringify(status));
+                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                        res.status(200).send();
+                    }
+                    if (status === false) {
+                        res.status(500).send();
+                    }
+                }
+            );
+
+        }
+        else {
+            res.status(401).send();
+        }
+
+    }
+);
+
+// virker ikke...
+router.put("/klippekort/:prePaidCardId", function (req, res, next) {
+        if (req.decoded.data.roleId === 1) {
+            facade.usecard(req.params.prePaidCardId, req.body.purhcasedAmount, req.body.userId, function (status) {
+                    console.log("her er status: " + status)
+                    if (status !== false) {
+                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                        res.status(200).send();
+                    }
+                    if (status === false) {
+                        res.status(500).send();
+                    }
+                }
+            );
+
+        }
+        else {
+            res.status(401).send();
+        }
+
+    }
+);
+
+//Edit a brand expects the full input -- WORKS
+
+router.put("/brand/:brandId", function (req, res, next) { // den her havde bare brandName only... skiftet til req.body.brandName
+        if (req.decoded.data.roleId === 1) {
+            facade.putCoffeeBrand(req.params.brandId, req.body.brandName, req.body.numberOfCoffeeNeeded, function (status) {
+                    console.log("her er status: " + status)
+                    if (status !== false) {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
@@ -218,7 +361,6 @@ router.put("/shop/:coffeeShopEmail", function (req, res, next) {
             console.log("her er status: " + status)
             if (status !== false) {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                res.write(JSON.stringify(status));
                 res.status(200).send();
             }
             if (status === false) {

@@ -14,6 +14,7 @@ var Order = require('./Order.js'); // Requires
 var CoffeeShop = require('./CoffeeShop.js'); // Requires
 var CoffeeShopUsers = require('./CoffeeShopUser.js'); // Requires
 var validate = require('./Validator');
+var klippekort = require('./PrePaidCoffeeCard.js')
 
 
 var sequelize = db.connect(); // Establishing connection to the MySQL database schema called keebin
@@ -453,6 +454,153 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
         } else return callback(d)
     })
 }
+
+
+function _buycard(CoffeeCode, CardID, userID, callback)
+{
+validate.valForNullsAndEmpty(function(data)
+{
+    if(data == true)
+    {
+        klippekort.buycard(CoffeeCode, CardID, userID, function (data){
+            if(data !== null)
+            {
+                callback(data)
+            }
+            else
+
+            {
+                callback("der gik noget galt..")
+            }
+        })
+    }
+    else
+    {
+      callback("den indtastede data skal være udfyldt!")
+    }
+
+
+}, CoffeeCode, CardID, userID)
+}
+
+function _getmycards(userID, callback)
+{
+    validate.valForNullsAndEmpty(function (data)
+    {
+
+        if(data == true)
+        {
+            klippekort.getmycards(userID, function(data)
+            {
+                callback(data)
+            })
+        }
+        else
+        {
+            callback("den indtastede data skal være udfyldt!")
+        }
+
+    }, userID)
+
+}
+
+function _getstorecards(coffeebrandID, callback)
+{
+    validate.valForNullsAndEmpty(function(data)
+    {
+        if(data == true)
+        {
+          klippekort.getstorecards(coffeebrandID, function(data)
+          {
+              callback(data)
+          })
+        }
+        else
+        {
+            callback("den indtastede data skal være udfyldt!")
+        }
+    }, coffeebrandID)
+}
+
+
+function _usecard(prepaidcardID, purchasedamount, userID, callback)
+{
+
+        validate.valForNullsAndEmpty(function(data)
+        {
+            if(data == true)
+            {
+            klippekort.usecard(prepaidcardID, purchasedamount, userID, function(data)
+            {
+               callback(data)
+            })
+            }
+            else
+            {
+                callback("den indtastede data skal være udfyldt!")
+            }
+        }, prepaidcardID, purchasedamount, userID)
+
+}
+
+function _newstorecard(price, name, count, brandID, callback)
+{
+    validate.valForNullsAndEmpty(function(data)
+    {
+        if(data == true)
+        {
+
+          klippekort.newstorecard(price, name, count, brandID, function(data)
+          {
+            callback(data)
+          })
+        }
+        else
+        {
+            callback("den indtastede data skal være udfyldt!")
+        }
+    }, price, name, count, brandID)
+}
+function _updatestorecard(storecardid, newprice, newname, newcount, callback)
+{
+    validate.valForNullsAndEmpty(function(data)
+    {
+        if(data == true)
+        {
+          klippekort.updatestorecard(storecardid, newprice, newname, newcount, function (data)
+          {
+              callback(data)
+          })
+        }
+        else
+        {
+            callback("den indtastede data skal være udfyldt!")
+        }
+    }, storecardid, newprice, newname, newcount)
+}
+
+
+function _deletestorecard(storecardID, callback)
+{
+    validate.valForNullsAndEmpty(function(data)
+    {
+        if(data == true)
+        {
+          klippekort.deletecard(storecardID, function(data)
+          {
+              callback(data)
+          })
+        }
+        else
+        {
+            callback("den indtastede data skal være udfyldt!")
+        }
+    }, storecardID)
+}
+
+
+
+
 // _createCoffeeShopUser('test1@test1.dk','test@test.dk',function(data){
 //     if(data){
 //         console.log(data)
@@ -496,5 +644,12 @@ module.exports = {
     putRole: _putRole,
     getRole: _getRole,
     getAllRoles: _getAllRoles,
-    coffeeBought: _coffeeBought
+    coffeeBought: _coffeeBought,
+    buycard : _buycard,
+    getmycards : _getmycards,
+    getstorecards : _getstorecards,
+    usecard : _usecard,
+    newstorecard : _newstorecard,
+    updatestorecard : _updatestorecard,
+    deletestorecard : _deletestorecard
 }; // Export Module

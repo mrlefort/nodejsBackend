@@ -55,23 +55,23 @@ var shop = db.CoffeeShop();
 
 function _getmycards(userID, callback)
 {
-    var allCards = [];
+var allCards = [];
 
-    var log = function (inst) {
+var log = function (inst) {
 
-        allCards.push(inst.get());
-    }
+    allCards.push(inst.get());
+}
     prePaidCard.findAll({where: {userId: userID}}).then(function (data, err) {
-        if (data !== null) {
-            data.forEach(log);
-            callback(allCards);
-        } else {
-            console.log("get all cards fejl ---- ")
-            console.log(err);
-            allCards = false;
-            callback(false);
-        }
-    })
+    if (data !== null) {
+        data.forEach(log);
+        callback(allCards);
+    } else {
+        console.log("get all cards fejl ---- ")
+        console.log(err);
+        allCards = false;
+        callback(false);
+    }
+})
 };
 
 function _getstorecards(coffeeBrandID, callback)
@@ -125,6 +125,7 @@ function _updatestorecard(id, newprice, newname, newcount, callback)
 {
     prePaidCoffeeCard.find({where: {id: id}}).then(function (data) {
 
+
         if(data !== null) {
             return conn.transaction(function (t) {
                 return data.updateAttributes({
@@ -161,14 +162,17 @@ function _newstorecard(price, name, count, brandID, callback)
                 }, {transaction: t})
 
             }).then(function (result) {
-                callback("Oprettet ny klippekorts variation.")
+                console.log("Oprettet ny klippekorts variation.")
+                callback(true)
             }).catch(function (err) {
-                callback("Kunne ikke oprette ny klippekorts variation")
+                console.log("Kunne ikke oprette ny klippekorts variation")
+                callback(false)
             })
         }
         else
         {
-            callback("dette kort eksistere allerede")
+            console.log("dette kort eksistere allerede")
+            console.log(false)
         }
     })
 
@@ -222,23 +226,24 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         if (shop !== null) {
             shopID = shop.brandName
 
-            prePaidCard.find({where: {PrePaidCoffeeCardId: cardID, userId: userID}}).then(function (data) { // we have run the callback inside the .then
-                // console.log(data.dataValues)
-                //            console.log(shop.brandName)
-                //            console.log(data.PrePaidCoffeeCardId)
+
+              prePaidCard.find({where: {PrePaidCoffeeCardId: cardID, userId: userID}}).then(function (data) { // we have run the callback inside the .then
+       // console.log(data.dataValues)
+       //            console.log(shop.brandName)
+       //            console.log(data.PrePaidCoffeeCardId)
                 if (data !== null) {
 
-                    uses = data.usesleft
-                    prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
+                        uses = data.usesleft
+                        prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
 
 
-                        if (data1 !== null) {
-                            // logic if found
-                            usesoncard = data1.count
+                            if (data1 !== null) {
+                                // logic if found
+                                usesoncard = data1.count
 
-                            if(data1.coffeeBrandId == shop.brandName) {
-                                brandName = shop.brandName;
-                                CoffeeID = data1.coffeeBrandId
+                                if(data1.coffeeBrandId == shop.brandName) {
+                                    brandName = shop.brandName;
+                                    CoffeeID = data1.coffeeBrandId
 
                                 return sequelize.transaction(function (t) {
 
@@ -249,9 +254,11 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                                     }, {transaction: t})
 
                                 }).then(function (result) {
-                                    callback("Tilføjet " + usesoncard + "til brugeren med et nyt antal klip: " + (parseInt(uses) + parseInt(usesoncard)))
+                                    console.log("Tilføjet " + usesoncard + "til brugeren med et nyt antal klip: " + (parseInt(uses) + parseInt(usesoncard)))
+                                    callback(true)
                                 }).catch(function (err) {
-                                    callback("noget gik galt... prøv igen")
+                                    callback(false)
+                                    console.log("noget gik galt... prøv igen")
                                     console.log("her er fejl fra PrepaidCoffeeCard.js update.. --- " + err)
 
                                     // Transaction has been rolled back
@@ -264,65 +271,72 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                                 console.log("denne butik har ingen tilsvarende kort.")
                             }
 
-                        }
-                        else {
-                            callback("der er ikke noget klippekort ")
-                            // burde aldrig komme herned.
-                            // logic if card is not present equalivant to the one bought.
-                        }
-                    })
+
+                            }
+                            else {
+                                console.log("der er ikke noget klippekort ")
+                                callback(false)
+
+                            }
+                        })
 
                 }
                 else {
 
 
-                    prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
+                     prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
 
-                        if(data1 !== null)
-                        {
-                            if (data1.coffeeBrandId == shop.brandName) {
-                                user.find({where: {id: userID}}).then(function (data) { // we have run the callback inside the .then
+                         if(data1 !== null)
+                         {
+                         if (data1.coffeeBrandId == shop.brandName) {
+                             user.find({where: {id: userID}}).then(function (data) { // we have run the callback inside the .then
 
-                                    if (data !== null) {
+                                 if (data !== null) {
 
-                                        prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
+                                     prePaidCoffeeCard.find({where: {id: cardID}}).then(function (data1) { // we have run the callback inside the .then
 
-                                            if (data1 !== null) {
-                                                return conn.transaction(function (t) {
-                                                    return prePaidCard.create({
-                                                        PrePaidCoffeeCardId: cardID,
-                                                        userId: userID,
-                                                        usesleft: data1.count
-                                                    }, {transaction: t})
+                                         if (data1 !== null) {
+                                             return conn.transaction(function (t) {
+                                                 return prePaidCard.create({
+                                                     PrePaidCoffeeCardId: cardID,
+                                                     userId: userID,
+                                                     usesleft: data1.count
+                                                 }, {transaction: t})
 
-                                                }).then(function (result) {
-                                                    callback("Oprettet nyt kort til brugeren.")
-                                                }).catch(function (err) {
-                                                    callback("der gik noget galt i oprettelsen af kortet.")
-                                                })
-                                            }
-                                            else {
-                                                console.log("no such card..")
-                                                // logic if no store has such a card.
-                                            }
-                                        })
-                                    }
-                                    else {
-                                        console.log("no user with the given ID")
-                                        // logic for user to see.
+                                             }).then(function (result) {
+                                                 callback(true)
+                                                 console.log("Oprettet nyt kort til brugeren.")
+                                             }).catch(function (err) {
+                                                 callback(false)
+                                                 console.log("der gik noget galt i oprettelsen af kortet.")
+                                             })
+                                         }
+                                         else {
+                                             callback(false)
+                                             console.log("no such card..")
+                                             // logic if no store has such a card.
+                                         }
+                                     })
+                                 }
+                                 else {
+                                     callback(false)
+                                     console.log("no user with the given ID")
+                                     // logic for user to see.
 
-                                    }
-                                })
-                            }
-                            else {
-                                console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
-                            }
-                        }
-                        else
-                        {
-                            console.log("intet klippekort med det id..")
-                        }
-                    })
+                                 }
+                             })
+                         }
+                         else {
+                             callback(false)
+                             console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
+                         }
+                     }
+                    else
+                         {
+                             callback(false)
+                             console.log("intet klippekort med det id..")
+                         }
+                })
                     // }
                     // else
                     // {
@@ -334,6 +348,8 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         }
         else {
             console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
+            callback(false)
+
         }
     })
 }

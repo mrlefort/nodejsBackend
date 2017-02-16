@@ -83,7 +83,26 @@ function _valNumber(number, callback) {
         callback(false)
     } else callback(true)
 }
+
+// _valAll(function(data){
+// console.log(data)
+// }, "LOL", 1, "a", [[]]) Example of useage...
+
+function _valForNullsAndEmpty(callback)
+{
+    var valid = true;
+    for (var i = 1; i<arguments.length; i++)
+    {
+        if(arguments[i] == null || arguments[i] == "")
+        {
+            valid = false;
+        }
+    }
+    callback(valid)
+}
+
 module.exports = {
     valOrderItem: _valOrderItem, valOrder: _valOrder, valID: _valID, valCoffeeshop: _valCoffeeshop,
-    valEmail: _valEmail, valUser: _valUser, valRole: _valRole, valBrand: _valBrand, valNumber: _valNumber
+    valEmail: _valEmail, valUser: _valUser, valRole: _valRole, valBrand: _valBrand, valNumber: _valNumber,
+    valForNullsAndEmpty : _valForNullsAndEmpty
 }
