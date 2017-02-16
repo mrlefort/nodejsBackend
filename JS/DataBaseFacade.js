@@ -15,6 +15,7 @@ var CoffeeShop = require('./CoffeeShop.js'); // Requires
 var CoffeeShopUsers = require('./CoffeeShopUser.js'); // Requires
 var validate = require('./Validator');
 var klippekort = require('./PrePaidCoffeeCard.js')
+var premium = require('./Premium')
 
 
 var sequelize = db.connect(); // Establishing connection to the MySQL database schema called keebin
@@ -610,6 +611,77 @@ function _deletestorecard(storecardID, callback)
 
 //COFFEESHOPUSER ENDS HERE
 
+
+function _createNewPremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.createPremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _deletePremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.deletePremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _putPremiumSubscriptionSetToCoffeeReady(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.putPremiumSubscriptionSetToCoffeeReady(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _putPremiumSubscriptionSetToCoffeeNotReady(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.putPremiumSubscriptionSetToCoffeeNotReady(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _getPremiumSubscription(userId, callback){
+    validate.valPremiumSubscription(userId, function (data) {
+        if (data) {
+            premium.getPremiumSubscription(userId, function (data) {
+                callback(data)
+            })
+        } else {
+            callback(false)
+        }
+    })
+}
+
+function _getAllPremiumSubscriptions(callback){
+    premium.getAllPremiumSubscriptions(function (data) {
+        callback(data)
+    })
+}
+
+
+
+
+
 module.exports = {
     createUser: _createUser,
     createRole: _createRole,
@@ -651,5 +723,11 @@ module.exports = {
     usecard : _usecard,
     newstorecard : _newstorecard,
     updatestorecard : _updatestorecard,
-    deletestorecard : _deletestorecard
+    deletestorecard : _deletestorecard,
+    createNewPremiumSubscription: _createNewPremiumSubscription,
+    deletePremiumSubscription: _deletePremiumSubscription,
+    putPremiumSubscriptionSetToCoffeeReady: _putPremiumSubscriptionSetToCoffeeReady,
+    putPremiumSubscriptionSetToCoffeeNotReady: _putPremiumSubscriptionSetToCoffeeNotReady,
+    getPremiumSubscription: _getPremiumSubscription,
+    getAllPremiumSubscriptions: _getAllPremiumSubscriptions
 }; // Export Module

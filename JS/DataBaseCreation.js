@@ -103,6 +103,18 @@ var loyaltyCards = sequelize.define('loyaltyCards', {
 
 }); // loyaltyCards table setup
 
+
+var premiumSubscription = sequelize.define('premiumSubscription', {
+    isValidForPremiumCoffee: {
+        type: Sequelize.BOOLEAN,
+        Validate: {notNull: true},
+    }
+}, {
+    freezeTableName: true, // Model tableName will be the same as the model name
+}); // premiumSubscription table setup
+
+
+
 var coffeeKind = sequelize.define('coffeeKind', {
     price: {
         type: Sequelize.DOUBLE,
@@ -227,6 +239,7 @@ loyaltyCards.belongsTo(user);
 coffeeBrand.hasMany(loyaltyCards, {foreignKey: 'brandName'});
 loyaltyCards.belongsTo(coffeeBrand, {foreignKey: 'brandName'});
 
+premiumSubscription.belongsTo(user);
 
 coffeeShop.hasMany(coffeeKind);
 coffeeKind.belongsTo(coffeeShop);
@@ -259,7 +272,7 @@ coffeeBrand.sync();
 
 
 role.sync();
-
+premiumSubscription.sync();
 user.sync(); // executes the command from above and inserts a new table into the database
 
 loyaltyCards.sync();
@@ -344,10 +357,17 @@ if(drop == 1)
         });
 }
 
+function _premiumSubscription(){
+    return premiumSubscription
+}
+
+
 // Export Functions // Export Functions
 
 module.exports = {
     Role: _Role, User: _User, CoffeeBrand: _CoffeeBrand,
     LoyaltyCards: _LoyaltyCards, CoffeeKind: _CoffeeKind, Order: _Order, CoffeeShop: _CoffeeShop,
-    CoffeeShopUsers: _CoffeeShopUsers, OrderItem: _OrderItem, connect: _connect, Authentication: _authentication, PrePaidCoffeeCard: _PrePaidCoffeeCard, PrePaidCard: _PrePaidCard
+    CoffeeShopUsers: _CoffeeShopUsers, OrderItem: _OrderItem, connect: _connect, Authentication: _authentication,
+    PrePaidCoffeeCard: _PrePaidCoffeeCard, PrePaidCard: _PrePaidCard,
+    premiumSubscription: _premiumSubscription
 }; // Export Module

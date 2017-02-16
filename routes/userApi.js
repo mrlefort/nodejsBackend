@@ -308,5 +308,90 @@ router.post("/user/logout", function (req, res) {
 
 //Steffen userLogin, userAuth og userLogout slut
 
+router.post("/createPremiumSubscription", function (req, res) {
+    facade.createNewPremiumSubscription(req.decoded.data.sub, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.delete("/deletePremiumSubscription", function (req, res) {
+    facade.deletePremiumSubscription(req.decoded.data.sub, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.get("/getPremiumSubscription", function (req, res) {
+    facade.getPremiumSubscription(req.decoded.data.sub, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.write(JSON.stringify(status));
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.get("/getAllPremiumSubscriptions", function (req, res) {
+    if (req.decoded.data.roleId === 1) //1 = admin
+    {
+        facade.getAllPremiumSubscriptions(function (status) {
+                if (status !== false) {
+                    res.writeHead(200, {"accessToken": req.headers.accessToken});
+                    res.write(JSON.stringify(status));
+                    res.status(200).send();
+                }
+                else {
+                    res.status(500).send();
+                }
+            }
+        )
+    } else {
+        res.status(401).send();
+    }
+});
+
+router.put("/setPremiumSubscriptionToCoffeeNotReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeNotReady(req.decoded.data.sub, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
+router.put("/setPremiumSubscriptionToCoffeeReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeReady(req.decoded.data.sub, function (status) {
+            if (status !== false) {
+                res.writeHead(200, {"accessToken": req.headers.accessToken});
+                res.status(200).send();
+            }
+            else {
+                res.status(500).send();
+            }
+        }
+    );
+});
+
 
 module.exports = router;

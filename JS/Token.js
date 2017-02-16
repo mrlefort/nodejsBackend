@@ -35,7 +35,7 @@ function createClaim(userData, secretKey) {
     var claims =
     {
         sub: userData.id,
-        iss: "www.keebin.dk",
+        iss: "www.js.keebin.dk",
         email: userData.email,
         roleId: userData.roleId
 
