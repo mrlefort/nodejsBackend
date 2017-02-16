@@ -14,6 +14,7 @@ var Order = require('./Order.js'); // Requires
 var CoffeeShop = require('./CoffeeShop.js'); // Requires
 var CoffeeShopUsers = require('./CoffeeShopUser.js'); // Requires
 var validate = require('./Validator');
+var premium = require('./Premium')
 
 
 var sequelize = db.connect(); // Establishing connection to the MySQL database schema called keebin

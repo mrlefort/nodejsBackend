@@ -106,7 +106,7 @@ function _putPremiumSubscriptionSetToCoffeeReady(userId, callback) {
             console.log("something went wrong with _putPremiumSubscription: " + err);
             callback(false);
         }
-        else {
+        else if (data.isValidForPremiumCoffee === false){
             console.log("Trying to update... " + data.id)
             // data.updateatt = update given attributes in the object
             // attribute : attributevalue to edit to.
@@ -116,6 +116,8 @@ function _putPremiumSubscriptionSetToCoffeeReady(userId, callback) {
                 console.log("PremiumSubscription " + data.id + " has been updated!");
                 callback(result);
             })
+        } else {
+            console.log("Data.isValidForPremiumCoffee is already true.")
         }
     });
 }
@@ -137,17 +139,15 @@ function _putPremiumSubscriptionSetToCoffeeNotReady(userId, callback) {
 }
 
 
-var j = schedule.scheduleJob({hour: 16, minute: 16, dayOfWeek: 3}, function(){
-    // _getAllPremiumSubscriptions(function (allPSubs) {
-    //     for (i = 0; i < allPSubs.length; i++){
-    //         if (i.isValidForPremiumCoffee !== true){
-    //             _putPremiumSubscriptionSetToCoffeeReady(allPSubs[i].userId, function (data) {
-    //                 console.log(data)
-    //             })
-    //         }
-    //     }
-    // })
-    console.log("det virker??!????!?++++++++++++++++++++")
+
+var j = schedule.scheduleJob({hour: 9, minute: 32, dayOfWeek: 4}, function(){
+    _getAllPremiumSubscriptions(function (allPSubs) {
+        for (i = 0; i < allPSubs.length; i++){
+            _putPremiumSubscriptionSetToCoffeeReady(allPSubs[i].userId, function (data) {
+                console.log(data)
+            })
+        }
+    })
 });
 
 
