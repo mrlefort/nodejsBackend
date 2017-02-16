@@ -125,6 +125,7 @@ function _updatestorecard(id, newprice, newname, newcount, callback)
 {
     prePaidCoffeeCard.find({where: {id: id}}).then(function (data) {
 
+
         if(data !== null) {
             return conn.transaction(function (t) {
                 return data.updateAttributes({
@@ -225,6 +226,7 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         if (shop !== null) {
             shopID = shop.brandName
 
+
               prePaidCard.find({where: {PrePaidCoffeeCardId: cardID, userId: userID}}).then(function (data) { // we have run the callback inside the .then
        // console.log(data.dataValues)
        //            console.log(shop.brandName)
@@ -268,6 +270,7 @@ function _buycard(coffeeCode, cardID, userID, callback) {
                             {
                                 console.log("denne butik har ingen tilsvarende kort.")
                             }
+
 
                             }
                             else {
@@ -346,9 +349,11 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         else {
             console.log("der skette en fejl, enten har butikken ikke dette klippekort ellers er kaffekoden forkert.")
             callback(false)
+
         }
     })
 }
 
 
 module.exports = {buycard: _buycard, usecard: _usecard, newstorecard : _newstorecard, updatestorecard : _updatestorecard, getstorecards : _getstorecards, getmycards : _getmycards, deletecard : _deletecard };
+
