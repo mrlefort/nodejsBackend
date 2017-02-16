@@ -140,7 +140,7 @@ function _putPremiumSubscriptionSetToCoffeeNotReady(userId, callback) {
 
 
 
-var j = schedule.scheduleJob({hour: 9, minute: 32, dayOfWeek: 4}, function(){
+var j = schedule.scheduleJob({hour: 23, minute: 59, dayOfWeek: 7}, function(){
     _getAllPremiumSubscriptions(function (allPSubs) {
         for (i = 0; i < allPSubs.length; i++){
             _putPremiumSubscriptionSetToCoffeeReady(allPSubs[i].userId, function (data) {
