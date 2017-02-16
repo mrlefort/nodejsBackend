@@ -99,7 +99,6 @@ function _getAllPremiumSubscriptions(callback) {
 
 
 
-
 function _putPremiumSubscriptionSetToCoffeeReady(userId, callback) {
     premium.find({where: {userId: userId}}).then(function (data, err) {
         if (data === null) {
@@ -140,7 +139,7 @@ function _putPremiumSubscriptionSetToCoffeeNotReady(userId, callback) {
 
 
 
-var j = schedule.scheduleJob({hour: 23, minute: 59, dayOfWeek: 7}, function(){
+var j = schedule.scheduleJob({hour: 23, minute: 59, dayOfWeek: 0}, function(){
     _getAllPremiumSubscriptions(function (allPSubs) {
         for (i = 0; i < allPSubs.length; i++){
             _putPremiumSubscriptionSetToCoffeeReady(allPSubs[i].userId, function (data) {

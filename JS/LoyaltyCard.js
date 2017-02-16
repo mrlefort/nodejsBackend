@@ -138,12 +138,6 @@ function _getLoyaltyCardByUserAndBrand(userID, brandName, callback) {
 }
 
 
-function steffen(data) {
-    console.log("vi er nu i steffen")
-    console.log(data.userId);
-    return data;
-}
-
 
 function _getAllloyaltyCards(userId, callback) {
     var allloyaltyCards = [];

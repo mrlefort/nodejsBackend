@@ -308,8 +308,8 @@ router.post("/user/logout", function (req, res) {
 
 //Steffen userLogin, userAuth og userLogout slut
 
-router.post("/user/createPremiumSubscription", function (req, res) {
-    facade.createNewPremiumSubscription(req.body.userId, function (status) {
+router.post("/createPremiumSubscription", function (req, res) {
+    facade.createNewPremiumSubscription(req.decoded.data.sub, function (status) {
             if (status !== false) {
                 res.writeHead(200, {"accessToken": req.headers.accessToken});
                 res.status(200).send();
@@ -321,8 +321,8 @@ router.post("/user/createPremiumSubscription", function (req, res) {
     );
 });
 
-router.delete("/user/deletePremiumSubscription", function (req, res) {
-    facade.deletePremiumSubscription(req.body.userId, function (status) {
+router.delete("/deletePremiumSubscription", function (req, res) {
+    facade.deletePremiumSubscription(req.decoded.data.sub, function (status) {
             if (status !== false) {
                 res.writeHead(200, {"accessToken": req.headers.accessToken});
                 res.status(200).send();
@@ -334,8 +334,8 @@ router.delete("/user/deletePremiumSubscription", function (req, res) {
     );
 });
 
-router.get("/user/getPremiumSubscription", function (req, res) {
-    facade.getPremiumSubscription(req.body.userId, function (status) {
+router.get("/getPremiumSubscription", function (req, res) {
+    facade.getPremiumSubscription(req.decoded.data.sub, function (status) {
             if (status !== false) {
                 res.writeHead(200, {"accessToken": req.headers.accessToken});
                 res.write(JSON.stringify(status));
@@ -348,10 +348,10 @@ router.get("/user/getPremiumSubscription", function (req, res) {
     );
 });
 
-router.get("/user/getAllPremiumSubscriptions", function (req, res) {
+router.get("/getAllPremiumSubscriptions", function (req, res) {
     if (req.decoded.data.roleId === 1) //1 = admin
     {
-        facade.getAllPremiumSubscriptions(req.body.userId, function (status) {
+        facade.getAllPremiumSubscriptions(function (status) {
                 if (status !== false) {
                     res.writeHead(200, {"accessToken": req.headers.accessToken});
                     res.write(JSON.stringify(status));
@@ -367,8 +367,8 @@ router.get("/user/getAllPremiumSubscriptions", function (req, res) {
     }
 });
 
-router.put("/user/setPremiumSubscriptionToCoffeeNotReady", function (req, res) {
-    facade.putPremiumSubscriptionSetToCoffeeNotReady(req.body.userId, function (status) {
+router.put("/setPremiumSubscriptionToCoffeeNotReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeNotReady(req.decoded.data.sub, function (status) {
             if (status !== false) {
                 res.writeHead(200, {"accessToken": req.headers.accessToken});
                 res.status(200).send();
@@ -380,8 +380,8 @@ router.put("/user/setPremiumSubscriptionToCoffeeNotReady", function (req, res) {
     );
 });
 
-router.put("/user/setPremiumSubscriptionToCoffeeReady", function (req, res) {
-    facade.putPremiumSubscriptionSetToCoffeeReady(req.body.userId, function (status) {
+router.put("/setPremiumSubscriptionToCoffeeReady", function (req, res) {
+    facade.putPremiumSubscriptionSetToCoffeeReady(req.decoded.data.sub, function (status) {
             if (status !== false) {
                 res.writeHead(200, {"accessToken": req.headers.accessToken});
                 res.status(200).send();
