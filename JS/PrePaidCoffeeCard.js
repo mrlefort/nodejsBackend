@@ -74,8 +74,6 @@ var log = function (inst) {
 })
 };
 
-
-
 function _getstorecards(coffeeBrandID, callback)
 {
     var allCards = [];
@@ -204,7 +202,6 @@ function _usecard(PrePaidCardID, purchasedamount, userID, callback) {
         }
     })
 }
-
 
 
 function _buycard(coffeeCode, cardID, userID, callback) {
@@ -340,11 +337,6 @@ function _buycard(coffeeCode, cardID, userID, callback) {
         }
     })
 }
-
-
-
-
-
 
 
 module.exports = {buycard: _buycard, usecard: _usecard, newstorecard : _newstorecard, updatestorecard : _updatestorecard, getstorecards : _getstorecards, getmycards : _getmycards, deletecard : _deletecard };
