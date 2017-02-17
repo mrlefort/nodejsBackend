@@ -75,7 +75,7 @@ router.post("/user/new", function (req, res, next)
                 "lastName": req.body.lastName,
                 "email": req.body.email,
                 "role": req.body.roleId,
-                "birthday": "2010-09-08 20:00:00",
+                "birthday": new Date(req.body.birthday),
                 "sex": req.body.sex,
                 "password": pw
             }
