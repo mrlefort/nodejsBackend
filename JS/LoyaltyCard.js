@@ -38,6 +38,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
     this.numberOfCoffeesBought = numberOfCoffeesBought; //loyaltyCards bliver lavet når man første gang trykker "tilføj kop" til en branch.
     this.userID = userID;
     this.readyForFreeCoffee = false;
+    var timesUsed = 0
 
 
     var returnstatement;
@@ -50,7 +51,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
                 return loyaltyCards.create({
                     numberOfCoffeesBought: numberOfCoffeesBought,
 
-                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false, timesUsed: 0
+                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false, timesUsed: timesUsed
 
 
                 }, {transaction: t})
