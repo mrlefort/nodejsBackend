@@ -39,6 +39,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
     this.userID = userID;
     this.readyForFreeCoffee = false;
 
+
     var returnstatement;
     console.log('vi er nu i create')
     console.log(brandId, userID, numberOfCoffeesBought)
@@ -49,7 +50,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
                 return loyaltyCards.create({
                     numberOfCoffeesBought: numberOfCoffeesBought,
 
-                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false
+                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false, timesUsed: 0
 
 
                 }, {transaction: t})
