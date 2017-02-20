@@ -169,9 +169,7 @@ console.log("fuckdisshit - " + userId);
 
 };  // this one "gets" all CoffeeShops.
 
-
 function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, callback) {
-    console.log('hej i add')
     loyaltyCards.find({where: {Id: LoyaltyCardID}}).then(function (data, err) {
         if (data === null) {
 
@@ -180,13 +178,16 @@ function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, callb
 
         }
         else {
+            //logik her til tilføjelse af kaffe til ultimatecounter
+            // var updatedTimesUsed = ++data.timesUsed
             console.log("Trying to update... " + LoyaltyCardID)
             // data.updateatt = update given attributes in the object
             // attribute : attributevalue to edit to.
             console.log('vi er i add og data er:' + LoyaltyCardID, numberOfCoffeesBought)
              data.numberOfCoffeesBought = "" + (parseInt(data.numberOfCoffeesBought) + parseInt(numberOfCoffeesBought));
             data.updateAttributes({
-                numberOfCoffeesBought: data.numberOfCoffeesBought
+                numberOfCoffeesBought: data.numberOfCoffeesBought,
+                timesUsed: ++data.timesUsed
             }).then(function (result) {
                 console.log("LoyaltyCard " + LoyaltyCardID + " has been updated!");
                 callback(true);
