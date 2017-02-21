@@ -1,16 +1,10 @@
 var Sequelize = require('sequelize'); // Requires
 
-var sequelize = new Sequelize('keebintest', 'adminsbRGiAF', 'UTcZZcP--I3P', {
-    host: "127.9.132.2",//process.env.OPENSHIFT_keebintest_DB_HOST,
-    port: process.env.OPENSHIFT_keebintest_DB_PORT,
+var sequelize = new Sequelize('keebin', 'keebin', '1234', {
+    host: "localhost",
+    port: 3306,
     dialect: 'mysql'
 }); // Establishing connection to the MySQL database schema called keebin
-
-// var sequelize = new Sequelize('keebin', 'keebin', '1234', {
-//     host: "localhost",
-//     port: 3306,
-//     dialect: 'mysql'
-// }); // Establishing connection to the MySQL database schema called keebin
 
 sequelize.authenticate().then(function (err) {
     if (err) {
@@ -96,27 +90,12 @@ var loyaltyCards = sequelize.define('loyaltyCards', {
     readyForFreeCoffee: {
         type: Sequelize.BOOLEAN,
         Validate: {notNull: true}
-    },
-    timesUsed: {
-        type: Sequelize.INTEGER,
     }
 }, {
     freezeTableName: true, // Model tableName will be the same as the model name
     timestamps: true // fjerner timestamps med false denne option skal stå på tabellen
 
 }); // loyaltyCards table setup
-
-
-var premiumSubscription = sequelize.define('premiumSubscription', {
-    isValidForPremiumCoffee: {
-        type: Sequelize.BOOLEAN,
-        Validate: {notNull: true},
-    }
-}, {
-    freezeTableName: true, // Model tableName will be the same as the model name
-}); // premiumSubscription table setup
-
-
 
 var coffeeKind = sequelize.define('coffeeKind', {
     price: {
@@ -207,31 +186,6 @@ var authentication = sequelize.define('authentication', {
 
 }); // coffeeBrand table setup
 
-var PrePaidCard = sequelize.define('coffeeBrandPrePaidCard', {
-    usesleft: {
-        type: Sequelize.INTEGER, // here we decide parameters for this field in the table
-        Validate: {notNull: true, isEmail: true, unique: true}
-    }
-});
-
-var PrePaidCoffeeCard = sequelize.define('PrePaidCoffeeCard', {
-    price: {
-        type: Sequelize.INTEGER,
-        Validate: {notNull: true}
-    },
-    name: {
-        type: Sequelize.STRING,
-        Validate: {notNull: true}
-    },
-    count: {
-        type: Sequelize.INTEGER,
-        Validate: {notNull: true}
-    }
-
-});
-
-
-
 
 role.hasMany(user, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
 user.belongsTo(role, {foreignKey: {allowNull: false}, onDelete: 'CASCADE'});
@@ -242,7 +196,6 @@ loyaltyCards.belongsTo(user);
 coffeeBrand.hasMany(loyaltyCards, {foreignKey: 'brandName'});
 loyaltyCards.belongsTo(coffeeBrand, {foreignKey: 'brandName'});
 
-premiumSubscription.belongsTo(user);
 
 coffeeShop.hasMany(coffeeKind);
 coffeeKind.belongsTo(coffeeShop);
@@ -264,18 +217,11 @@ coffeeShop.belongsTo(coffeeBrand, {foreignKey: "brandName"});
 
 order.belongsToMany(coffeeKind, {through: 'orderItem', foreignKey: 'Order_ID'});
 coffeeKind.belongsToMany(order, {through: 'orderItem', foreignKey: 'CoffeeKind_ID'}); // Working with  // associations
-
-
-PrePaidCoffeeCard.belongsTo(coffeeBrand)
-PrePaidCard.belongsTo(user);
-PrePaidCoffeeCard.hasMany(PrePaidCard);
-PrePaidCard.belongsTo(PrePaidCoffeeCard);
-
 coffeeBrand.sync();
 
 
 role.sync();
-premiumSubscription.sync();
+
 user.sync(); // executes the command from above and inserts a new table into the database
 
 loyaltyCards.sync();
@@ -286,11 +232,8 @@ coffeeShop.sync();
 coffeeShopUsers.sync();
 orderItem.sync();
 authentication.sync();
-PrePaidCoffeeCard.sync();
-PrePaidCard.sync();
 // Creating Tables
 
-var drop = 2; // sæt den her til 1 og så dropper du tables.
 
 function _Role() {
     return role;
@@ -337,40 +280,10 @@ function _authentication() {
     return authentication;
 }
 
-function _PrePaidCard()
-{
-    return PrePaidCard
-}
-
-function _PrePaidCoffeeCard()
-{
-    return PrePaidCoffeeCard
-}
-
-drop = 2;
-if(drop == 1)
-{
-    sequelize
-        .sync() // create the database table for our model(s)
-        .then(function(){
-            // do some work
-        })
-        .then(function(){
-            return sequelize.drop() // drop all tables in the db
-        });
-}
-
-function _premiumSubscription(){
-    return premiumSubscription
-}
-
-
 // Export Functions // Export Functions
 
 module.exports = {
     Role: _Role, User: _User, CoffeeBrand: _CoffeeBrand,
     LoyaltyCards: _LoyaltyCards, CoffeeKind: _CoffeeKind, Order: _Order, CoffeeShop: _CoffeeShop,
-    CoffeeShopUsers: _CoffeeShopUsers, OrderItem: _OrderItem, connect: _connect, Authentication: _authentication,
-    PrePaidCoffeeCard: _PrePaidCoffeeCard, PrePaidCard: _PrePaidCard,
-    premiumSubscription: _premiumSubscription
+    CoffeeShopUsers: _CoffeeShopUsers, OrderItem: _OrderItem, connect: _connect, Authentication: _authentication
 }; // Export Module

@@ -30,12 +30,12 @@ function _newUser(firstName, lastName, email, role, birthday, sex, password) {
 function _createUser(firstName, lastName, email, role, birthday, sex, password, callback) // this creates a user
 {
     var userCreated = false;
-
+    console.log("her er indhold:",+firstName+lastName+email+role+birthday+sex+password)
     console.log("createUser is running. ")
     User.find({where: {Email: email}}).then(function (data) { // we have run the callback inside the .then
         if (data !== null) {
             console.log("user found - email exists already - " + data.email)
-            callback(userCreated);
+            callback("User already exists");
         } else {
             return sequelize.transaction(function (t) {
 

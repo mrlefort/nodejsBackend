@@ -6,125 +6,81 @@ var router = express.Router();
 var facade = require("../JS/DataBaseFacade.js");
 var bcrypt = require('bcryptjs');
 
-// virker
-router.delete("/klippekort/:CoffeeBrandID", function (req, res) {
-    if (req.decoded.data.roleId === 1) {
-        console.log("param: " + req.params.CoffeeBrandID)
-        facade.deletestorecard(req.params.CoffeeBrandID, function (status) {
-
-            if (status !== false) {
-                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                res.status(200).send();
-            }
-            else {
-                res.status(500).send();
-            }
-        });
-    }
-    else {
-        res.status(401).send();
-    }
-});
 
 //Deletes a CoffeeBrand by ID -- Works
-router.delete("/brand/:CoffeeBrandID", function (req, res) {
-    if (req.decoded.data.roleId === 1) {
+router.delete("/brand/:CoffeeBrandID", function (req, res)
+{
+    if (req.decoded.data.roleId === 1)
+    {
         console.log("param: " + req.params.CoffeeBrandID)
-        facade.deleteCoffeeBrand(req.params.CoffeeBrandID, function (status) {
-
-            if (status !== false) {
+        facade.deleteCoffeeBrand(req.params.CoffeeBrandID, function (status)
+        {
+            if (status !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                 res.status(200).send();
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
     }
-    else {
+    else
+    {
         res.status(401).send();
     }
 });
 
 // delete a coffe shop on the email -- WOrks
-router.delete("/shop/:CoffeeShopEmail", function (req, res) {
-    if (req.decoded.data.roleId === 1) {
+router.delete("/shop/:CoffeeShopEmail", function (req, res)
+{
+    if (req.decoded.data.roleId === 1)
+    {
         console.log("param: " + req.params.CoffeeShopEmail)
-        facade.deleteCoffeeShop(req.params.CoffeeShopEmail, function (status) {
-            if (status !== false) {
+        facade.deleteCoffeeShop(req.params.CoffeeShopEmail, function (status)
+        {
+            if (status !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                 res.status(200).send();
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
     }
-    else {
+    else
+    {
         res.status(401).send();
     }
 });
 
-// virker
-router.post("/klippekort/new", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-
-            facade.buycard(req.body.coffeeCode, req.body.storeCardId, req.body.userId, function (status) {
-                    if (status === true) {
-                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                        res.status(200).send();
-                    }
-                    else {
-                        res.status(500).send();
-                    }
-
-                }
-            );
-        }
-        else {
-            res.status(401).send();
-        }
-    }
-);
-
-// virker
-router.post("/klippekortvariation/new", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-            facade.newstorecard(req.body.price, req.body.name, req.body.uses, req.body.brandId, function (status) {
-                    if (status === true) {
-                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                        res.status(200).send();
-                    }
-                    else {
-                        res.status(500).send();
-                    }
-
-                }
-            );
-        }
-        else {
-            res.status(401).send();
-        }
-    }
-);
 
 //New Brand -- WORKS
 
-router.post("/brand/new", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-            facade.createCoffeeBrand(req.body.brandName, req.body.numberOfCoffeeNeeded, function (status) {
-                    if (status === true) {
+router.post("/brand/new", function (req, res, next)
+    {
+        if (req.decoded.data.roleId === 1)
+        {
+            facade.createCoffeeBrand(req.body.brandName, req.body.numberOfCoffeeNeeded, function (status)
+                {
+                    if (status === true)
+                    {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
-                    else {
+                    else
+                    {
                         res.status(500).send();
                     }
 
                 }
             );
         }
-        else {
+        else
+        {
             res.status(401).send();
         }
     }
@@ -132,37 +88,45 @@ router.post("/brand/new", function (req, res, next) {
 
 // WORKS
 
-router.post("/shop/new", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-            facade.createCoffeeShop(req.body.email, req.body.brandName, req.body.address, req.body.phone, function (status) {
-                    if (status === true) {
+router.post("/shop/new", function (req, res, next)
+    {
+        if (req.decoded.data.roleId === 1)
+        {
+            facade.createCoffeeShop(req.body.email, req.body.brandName, req.body.address, req.body.phone, function (status)
+                {
+                    if (status === true)
+                    {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
-                    else {
+                    else
+                    {
                         res.status(500).send();
                     }
 
                 }
             );
         }
-        else {
+        else
+        {
             res.status(401).send();
         }
     }
 );
 
-
-
 // WORKS -- takes the Email of a user and a shop.
-router.post("/shopuser/new", function (req, res, next) {
+router.post("/shopuser/new", function (req, res, next)
+    {
 
-        facade.createCoffeeShopUser(req.body.userEmail, req.body.coffeeShopEmail, function (status) {
-                if (status === true) {
+        facade.createCoffeeShopUser(req.body.userEmail, req.body.coffeeShopEmail, function (status)
+            {
+                if (status === true)
+                {
                     res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                     res.status(200).send();
                 }
-                else {
+                else
+                {
                     res.status(500).send();
                 }
             }
@@ -171,48 +135,20 @@ router.post("/shopuser/new", function (req, res, next) {
 );
 
 
-
-
-// virker
-router.get("/klippekortvariation/:coffeeBrandId", function (req, res, next) {
-        facade.getstorecards(req.params.coffeeBrandId, function (data) {
-            if (data !== false) {
-                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-
-                res.end(JSON.stringify(data));
-            }
-            else {
-                res.status(500).send();
-            }
-        });
-    }
-);
-
-// Virker.
-router.get("/mineklippekort/:userId", function (req, res, next) {
-        facade.getmycards(req.params.userId, function (data) {
-            if (data !== false) {
-                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-
-                res.end(JSON.stringify(data));
-            }
-            else {
-                res.status(500).send();
-            }
-        });
-    }
-);
-
 //Get brand by brandID -- WORKS
 
-router.get("/brand/:brandName", function (req, res, next) {
-        facade.getCoffeeBrand(req.params.brandName, function (data) {
-            if (data !== false) {
+router.get("/brand/:brandName", function (req, res, next)
+    {
+        facade.getCoffeeBrand(req.params.brandName, function (data)
+        {
+            if (data !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
                 res.end(JSON.stringify(data));
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
@@ -220,14 +156,18 @@ router.get("/brand/:brandName", function (req, res, next) {
 );
 
 // get a coffeshop by email -- WORKS
-router.get("/shop/:email", function (req, res, next) {
-        facade.getCoffeeShop(req.params.email, function (data) {
-            if (data !== false) {
+router.get("/shop/:email", function (req, res, next)
+    {
+        facade.getCoffeeShop(req.params.email, function (data)
+        {
+            if (data !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
                 res.end(JSON.stringify(data));
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
@@ -235,119 +175,91 @@ router.get("/shop/:email", function (req, res, next) {
 );
 
 // WORKS
-router.get("/allshops/", function (req, res, next) {
+router.get("/allshops/", function (req, res, next)
+{
 
-    facade.getAllCoffeeShops(function (status) {
-        if (status !== false) {
+    facade.getAllCoffeeShops(function (status)
+    {
+        if (status !== false)
+        {
             res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
             res.end(JSON.stringify(status));
         }
-        else {
+        else
+        {
             res.status(500).send();
         }
     })
 });
 
 // WORKS
-router.get("/allbrands/", function (req, res, next) {
+router.get("/allbrands/", function (req, res, next)
+{
 
-    facade.getAllCoffeeBrand(function (status) {
-        if (status !== false) {
+    facade.getAllCoffeeBrand(function (status)
+    {
+        if (status !== false)
+        {
             res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
             res.end(JSON.stringify(status));
         }
-        else {
+        else
+        {
             res.status(500).send();
         }
     })
 });
 
 // WORKS
-router.get("/allshopusers/:shopID", function (req, res, next) {
-    if (req.decoded.data.roleId === 1) {
+router.get("/allshopusers/:shopID", function (req, res, next)
+{
+    if (req.decoded.data.roleId === 1)
+    {
         console.log(req.params.shopID);
-        facade.getAllcoffeeShopUser(req.params.shopID, function (status) {
-            if (status !== false) {
+        facade.getAllcoffeeShopUser(req.params.shopID, function (status)
+        {
+            if (status !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                 res.end(JSON.stringify(status));
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         })
     }
-    else {
+    else
+    {
         res.status(401).send();
     }
 });
 
-
-
-
-// virker
-router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-            facade.updatestorecard(req.params.storeCardId, req.body.newPrice, req.body.newName, req.body.newCount, function (status) {
-                    console.log("her er status: " + status)
-                    if (status !== false) {
-                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                        res.status(200).send();
-                    }
-                    if (status === false) {
-                        res.status(500).send();
-                    }
-                }
-            );
-
-        }
-        else {
-            res.status(401).send();
-        }
-
-    }
-);
-
-// virker ikke...
-router.put("/klippekort/:prePaidCardId", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
-            facade.usecard(req.params.prePaidCardId, req.body.purhcasedAmount, req.body.userId, function (status) {
-                    console.log("her er status: " + status)
-                    if (status !== false) {
-                        res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
-                        res.status(200).send();
-                    }
-                    if (status === false) {
-                        res.status(500).send();
-                    }
-                }
-            );
-
-        }
-        else {
-            res.status(401).send();
-        }
-
-    }
-);
-
 //Edit a brand expects the full input -- WORKS
 
-router.put("/brand/:brandId", function (req, res, next) { // den her havde bare brandName only... skiftet til req.body.brandName
-        if (req.decoded.data.roleId === 1) {
-            facade.putCoffeeBrand(req.params.brandId, req.body.brandName, req.body.numberOfCoffeeNeeded, function (status) {
+router.put("/brand/:brandId", function (req, res, next)
+    {
+        if (req.decoded.data.roleId === 1)
+        {
+            facade.putCoffeeBrand(req.params.brandId, brandName, req.body.numberOfCoffeeNeeded, function (status)
+                {
                     console.log("her er status: " + status)
-                    if (status !== false) {
+                    if (status !== false)
+                    {
+                        res.write(JSON.stringify(status));
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
                     }
-                    if (status === false) {
+                    if (status === false)
+                    {
                         res.status(500).send();
                     }
                 }
             );
 
         }
-        else {
+        else
+        {
             res.status(401).send();
         }
 
@@ -355,21 +267,28 @@ router.put("/brand/:brandId", function (req, res, next) { // den her havde bare 
 );
 
 // Edit a coffeeshop using their email.. -- WORKS
-router.put("/shop/:coffeeShopEmail", function (req, res, next) {
-    if (req.decoded.data.roleId === 1) {
-        facade.putCoffeeShop(req.params.coffeeShopEmail, req.body.email, req.body.brandID, req.body.address, req.body.phone, function (status) {
+router.put("/shop/:coffeeShopEmail", function (req, res, next)
+{
+    if (req.decoded.data.roleId === 1)
+    {
+        facade.putCoffeeShop(req.params.coffeeShopEmail, req.body.email, req.body.brandID, req.body.address, req.body.phone, function (status)
+        {
             console.log("her er status: " + status)
-            if (status !== false) {
+            if (status !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+                res.write(JSON.stringify(status));
                 res.status(200).send();
             }
-            if (status === false) {
+            if (status === false)
+            {
                 res.status(500).send();
             }
         })
 
     }
-    else {
+    else
+    {
         res.status(401).send();
     }
 

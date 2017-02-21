@@ -10,33 +10,43 @@ var facade = require("../JS/DataBaseFacade.js");
 
 
 //Deletes a order by OrderId -- WORKS
-router.delete("/order/:id", function (req, res) {
-    if (req.decoded.data.roleId === 1) {
-        facade.deleteOrder(req.params.id, function (status) {
-            if (status !== false) {
+router.delete("/order/:id", function (req, res)
+{
+    if (req.decoded.data.roleId === 1)
+    {
+        facade.deleteOrder(req.params.id, function (status)
+        {
+            if (status !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                 res.status(200).send();
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
     }
-    else {
+    else
+    {
         res.status(401).send();
     }
 });
 
 //New Order -- WORKS..
-router.post("/order/new", function (req, res, next) {
+router.post("/order/new", function (req, res, next)
+    {
         console.log("id here! - " + req.body.userId)
-        facade.createOrder(req.body.userId, req.body.coffeeShopId, req.body.platform, function (status) {
-                if (status === true) {
+        facade.createOrder(req.body.userId, req.body.coffeeShopId, req.body.platform, function (status)
+            {
+                if (status === true)
+                {
                     res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
                     res.status(200).send();
                 }
-                else {
+                else
+                {
                     res.status(500).send();
                 }
             }
@@ -45,14 +55,18 @@ router.post("/order/new", function (req, res, next) {
 );
 
 //Get order by OrderId -- WORKS
-router.get("/order/:orderId", function (req, res, next) {
-        facade.getOrder(req.params.orderId, function (data) {
-            if (data !== false) {
+router.get("/order/:orderId", function (req, res, next)
+    {
+        facade.getOrder(req.params.orderId, function (data)
+        {
+            if (data !== false)
+            {
                 res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
                 res.end(JSON.stringify(data));
             }
-            else {
+            else
+            {
                 res.status(500).send();
             }
         });
@@ -71,38 +85,45 @@ router.get("/order/:orderId", function (req, res, next) {
  */
 
 // WORKS
-router.get("/allorders/from/:email", function (req, res, next) {
+router.get("/allorders/from/:email", function (req, res, next)
+{
     var email = req.params.email;
     console.log("here is email - " + req.params.email);
-    facade.getAllOrdersByUser(email, function (status) {
-        if (status !== false) {
+    facade.getAllOrdersByUser(email, function (status)
+    {
+        if (status !== false)
+        {
             res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
             res.end(JSON.stringify(status));
         }
-        else {
+        else
+        {
             res.status(500).send();
         }
     })
 });
 
 // WORKS -- but needs to allow duplicates on ID's!!! So we can check more itemorders on the same order.
-router.post("/orderitem/new", function (req, res, next) {
+router.post("/orderitem/new", function (req, res, next)
+    {
         console.log("id here! - " + req.body.orderId)
-        facade.createOrderItem(req.body.orderId, req.body.coffeeKindId, req.body.quantity, function (status) {
-                if (status === true) {
+        facade.createOrderItem(req.body.orderId, req.body.coffeeKindId, req.body.quantity, function (status)
+            {
+                if (status === true)
+                {
                     res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
 
                     res.status(200).send();
                 }
-                else {
+                else
+                {
                     res.status(500).send();
                 }
             }
         );
     }
 );
-
 
 
 module.exports = router;

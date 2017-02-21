@@ -6,6 +6,8 @@ var userID = "";
 
 var readyForFreeCoffee;
 var loyaltyCards = db.LoyaltyCards();
+var coffeeBrand = require('./CoffeeBrand')
+var CoffeeBrand =coffeeBrand.CoffeeBrand
 
 
 function _deleteLoyaltyCard(ID, callback) {
@@ -38,8 +40,6 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
     this.numberOfCoffeesBought = numberOfCoffeesBought; //loyaltyCards bliver lavet når man første gang trykker "tilføj kop" til en branch.
     this.userID = userID;
     this.readyForFreeCoffee = false;
-    var timesUsed = 0
-
 
     var returnstatement;
     console.log('vi er nu i create')
@@ -51,7 +51,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
                 return loyaltyCards.create({
                     numberOfCoffeesBought: numberOfCoffeesBought,
 
-                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false, timesUsed: timesUsed
+                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false
 
 
                 }, {transaction: t})
@@ -140,6 +140,12 @@ function _getLoyaltyCardByUserAndBrand(userID, brandName, callback) {
 }
 
 
+function steffen(data) {
+    console.log("vi er nu i steffen")
+    console.log(data.userId);
+    return data;
+}
+
 
 function _getAllloyaltyCards(userId, callback) {
     var allloyaltyCards = [];
@@ -171,8 +177,12 @@ console.log("fuckdisshit - " + userId);
 
 };  // this one "gets" all CoffeeShops.
 
+
 function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, callback) {
+    console.log('hej i add')
+
     loyaltyCards.find({where: {Id: LoyaltyCardID}}).then(function (data, err) {
+
         if (data === null) {
 
             console.log("something went wrong with editting " + LoyaltyCardID + " and gave an error - " + err);
@@ -180,20 +190,48 @@ function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, callb
 
         }
         else {
-            //logik her til tilføjelse af kaffe til ultimatecounter
-            // var updatedTimesUsed = ++data.timesUsed
-            console.log("Trying to update... " + LoyaltyCardID)
-            // data.updateatt = update given attributes in the object
-            // attribute : attributevalue to edit to.
-            console.log('vi er i add og data er:' + LoyaltyCardID, numberOfCoffeesBought)
-             data.numberOfCoffeesBought = "" + (parseInt(data.numberOfCoffeesBought) + parseInt(numberOfCoffeesBought));
-            data.updateAttributes({
-                numberOfCoffeesBought: data.numberOfCoffeesBought,
-                timesUsed: ++data.timesUsed
-            }).then(function (result) {
-                console.log("LoyaltyCard " + LoyaltyCardID + " has been updated!");
-                callback(true);
-            })
+            console.log("true eller false?`:" + data.readyForFreeCoffee)
+            if(data.readyForFreeCoffee === true){
+                data.readyForFreeCoffee = false
+                data.updateAttributes({
+                    numberOfCoffeesBought: 0,
+                    readyForFreeCoffee: data.readyForFreeCoffee
+                }).then(function (result) {
+                    console.log("VI BURDE FUCKING SLUTTE HER: " + data.numberOfCoffeesBought);
+                    console.log("LoyaltyCard " + LoyaltyCardID + " has been updated!");
+                    callback(true);
+                })
+
+            }else {
+                CoffeeBrand.find({where: {Id: data.brandName}}).then(function (data2, err) {
+
+
+                    tempCount = (parseInt(data.numberOfCoffeesBought) + parseInt(numberOfCoffeesBought))
+                    console.log("her har vi tempCount: " + tempCount);
+                    if (tempCount > data2.numberOfCoffeeNeeded) {
+                        callback("exceeding the limit")
+                    } else {
+                        console.log("Trying to update... " + LoyaltyCardID)
+                        // data.updateatt = update given attributes in the object
+                        // attribute : attributevalue to edit to.
+                        console.log('vi er i add og data er:' + LoyaltyCardID, numberOfCoffeesBought)
+                        console.log("her har vi numberofcoffeesneeded: " + data2.numberOfCoffeeNeeded)
+                        if (tempCount === data2.numberOfCoffeeNeeded) {
+                            data.readyForFreeCoffee = true;
+                            console.log("ready for free coffee!!: " + data.readyForFreeCoffee)
+                        }
+                        data.numberOfCoffeesBought = "" + tempCount;
+                        data.updateAttributes({
+                            numberOfCoffeesBought: data.numberOfCoffeesBought,
+                            readyForFreeCoffee: data.readyForFreeCoffee
+                        }).then(function (result) {
+                            console.log("LoyaltyCard " + LoyaltyCardID + " has been updated!");
+                            callback(true);
+                        })
+                    }
+                })
+            }
+
         }
     });
 }

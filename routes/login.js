@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Created by mrlef on 11/8/2016.
  */
 var express = require('express');
@@ -12,14 +12,11 @@ var jwt = require('jsonwebtoken');
 
 router.post("/", function (req, res)
     {
-
-console.log("hej fra update")
         //her skal vi tjekke om der er en accessToken, eller en refreshToken og sammenligner den med vores secretKey.
-
-
         console.log("her er email " + req.body.email)
         facade.getUser(req.body.email, function (data)
         {
+
             if (data !== false)
             {
                 console.log("req pass: " + req.body.password + "data pass: " + data.password);
@@ -41,8 +38,6 @@ console.log("hej fra update")
                             console.log("Found refreshToken - " + refreshToken);
                             var tokens = {"accessToken": accessToken, "refreshToken": refreshToken}
                             res.status(200).send(JSON.stringify(tokens));
-
-
                         });
                     });
                 } else
@@ -75,7 +70,7 @@ router.post("/user/new", function (req, res, next)
                 "lastName": req.body.lastName,
                 "email": req.body.email,
                 "role": req.body.roleId,
-                "birthday": new Date(req.body.birthday),
+                "birthday": "2010-09-08 20:00:00",
                 "sex": req.body.sex,
                 "password": pw
             }
@@ -84,30 +79,13 @@ router.post("/user/new", function (req, res, next)
 
                 if (status === true)
                 {
-                    var tokens = {};
-                    facade.getUser(userToSave.email, function (data)
-                    {
-                        Token.createRefreshToken(data.id, function (newRefreshTokenCreated)
-                        {
-                            console.log("vi kører refreshTOken")
-                            refreshToken = newRefreshTokenCreated.refreshToken;
-
-                            Token.getToken(data, function (accessToken)
-                            {
-                                console.log("vi kører accessToken")
-                                console.log("Found accessToken - " + accessToken);
-                                console.log("Found refreshToken - " + refreshToken);
-                                tokens = {"accessToken": accessToken, "refreshToken": refreshToken}
-                                res.writeHead(200, {"accessToken": tokens.accessToken, "refreshToken": tokens.refreshToken});
-                                res.status(200).send();
-
-                            });
-                        });
-                    })
-
+                    // res.writeHead(200, {"accessToken": req.headers.accessToken});
+                    res.status(200).send();
                 }
-                else
+                else if(status === "User already exists")
                 {
+                    res.status(501).send();
+                } else{
                     res.status(500).send();
                 }
             }

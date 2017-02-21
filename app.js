@@ -22,7 +22,6 @@ var login = require('./routes/login');
 var users = require('./routes/userApi');
 var coffee = require('./routes/coffeeApi');
 var order = require('./routes/orderApi');
-var houseKeeping = require("./routes/houseKeepingApi");
 
 
 var app = express();
@@ -200,7 +199,6 @@ app.all('/api/*', function (req, res, next) {
 app.use('/api/users', users); // User + Role + LoyaltyCard -- Done (testet og alt virker)
 app.use('/api/coffee', coffee); // everything to do with Coffee brand, shop, shopuser... -- Done
 app.use('/api/order', order); // order + orderitem --- DONE (testet og alt virker. manglede get all users func som er added og testet!)
-app.use('/api/housekeeping', houseKeeping);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
