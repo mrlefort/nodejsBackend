@@ -351,17 +351,12 @@ router.get("/allusers/", function (req, res)
 });
 
 
-router.post("/user/logout", function (req, res)
-{
-    console.log("kører api/logout")
-    User.logoutUser(req.body.email, function (data)
-    {
-        if (data)
-        {
+router.post("/user/logout", function (req, res) {
+    User.logoutUser(req.decoded.data.email, function (data) {
+        if (data) {
             res.status(200).send("du er nu logget ud");
-        } else
-        {
-            console.log("det gik galt")
+        } else {
+            console.log(false)
         }
     })
 });
