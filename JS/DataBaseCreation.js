@@ -5,7 +5,7 @@ var sequelize = new Sequelize('keebintest', 'adminsbRGiAF', 'UTcZZcP--I3P', {
     port: process.env.OPENSHIFT_keebintest_DB_PORT,
     dialect: 'mysql'
 }); // Establishing connection to the MySQL database schema called keebin
-
+//
 // var sequelize = new Sequelize('keebin', 'keebin', '1234', {
 //     host: "localhost",
 //     port: 3306,
