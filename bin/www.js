@@ -56,6 +56,14 @@ if (cluster.isMaster)
     });
 }
 else {
+  // http.createServer(app).listen(server_port, server_ip_address, function () {
+  //     console.log( "Listening on " + server_ip_address + ", port " + server_port )
+  // });
+
+    /**
+     * Listen on provided port, on all network interfaces.
+     */
+
    https.createServer(https_options, app).listen(server_port, server_ip_address, () =>
     {
         console.log('Worker thread ' + process.pid + ' started. Lytter på ' + server_port + ', bundet til ' + server_ip_address + ' - https slået til');

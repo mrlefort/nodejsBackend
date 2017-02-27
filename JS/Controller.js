@@ -111,13 +111,13 @@ var db = require('./DataBaseFacade.js');
 
 
 //
-// var a;
-//
-// db.createRole("Admin", function(data) {
-//     a = data;
-//     console.log("Created role in DB - " + a);
-//
-// });
+var a;
+
+db.createRole("Admin", function(data) {
+    a = data;
+    console.log("Created role in DB - " + a);
+
+});
 
 // var b;
 //

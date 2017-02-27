@@ -23,7 +23,7 @@ var users = require('./routes/userApi');
 var coffee = require('./routes/coffeeApi');
 var order = require('./routes/orderApi');
 var houseKeeping = require("./routes/houseKeepingApi");
-
+var certs = require("./routes/certificateLoader");
 
 var app = express();
 
@@ -39,6 +39,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+console.log("lige før cert!");
+app.use("/cert", certs);
 
 // passport.use(new Strategy(
 //     function (accessToken, cb) {
@@ -114,7 +118,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     }
 //
 // })}));
-
 
 app.use('/login', login);
 
