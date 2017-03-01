@@ -56,8 +56,8 @@
       <file leaf-file-name="userApi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/userApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="183" column="33" lean-forward="false" selection-start-line="183" selection-start-column="27" selection-end-line="183" selection-end-column="33" />
+            <state relative-caret-position="482">
+              <caret line="40" column="41" lean-forward="true" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -118,7 +118,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1488364846598" expanded="true" signature="50697:50739" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -552,12 +554,12 @@
       <workItem from="1487575932897" duration="3047000" />
       <workItem from="1487585990943" duration="2391000" />
       <workItem from="1487770240742" duration="669000" />
-      <workItem from="1488364656374" duration="144000" />
+      <workItem from="1488364656374" duration="232000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20057000" />
+    <option name="totallyTimeSpent" value="20145000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -940,7 +942,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1488364846598" expanded="true" signature="50697:50739" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -986,8 +990,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/userApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="183" column="33" lean-forward="false" selection-start-line="183" selection-start-column="27" selection-end-line="183" selection-end-column="33" />
+        <state relative-caret-position="482">
+          <caret line="40" column="41" lean-forward="true" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding />
         </state>
       </provider>

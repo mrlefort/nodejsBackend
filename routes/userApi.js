@@ -30,6 +30,28 @@ router.delete("/user/:email", function (req, res) {
     }
 });
 
+router.get("/gwt", function (req, res, next)
+    {
+        facade.getUser(req.decoded.data.email, function (data)
+        {
+            if (data !== false)
+            {
+                res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
+
+                res.end(JSON.stringify(data));
+            }
+            else
+            {
+                res.status(500).send();
+            }
+        });
+    }
+);
+
+
+
+
+
 
 //New User  -- WORKS
 router.post("/user/new", function (req, res, next) {
