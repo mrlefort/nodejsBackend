@@ -181,7 +181,7 @@ router.put("/user/:email", function (req, res, next) {
 
 
 
-        facade.putUser(userToSave.email, userToSave.firstName, userToSave.lastName, userToSave.email, userToSave.role, userToSave.birthday, userToSave.sex, userToSave.password, function (status) {
+        facade.putUser(req.params.email, userToSave.firstName, userToSave.lastName, userToSave.email, userToSave.role, userToSave.birthday, userToSave.sex, userToSave.password, function (status) {
                 console.log("her er status: " + status)
                 if (status !== false) {
                     delete userToSave.password;
