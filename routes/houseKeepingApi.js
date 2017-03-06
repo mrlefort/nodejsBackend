@@ -7,32 +7,49 @@ var facade = require("../JS/DataBaseFacade.js");
 var bcrypt = require('bcryptjs');
 
 
-router.get("/picture/:name", function (req, res, next)
-{
+router.get("/picture/:name", function (req, res, next) {
     var options = {
-        root: __dirname + '/pics/',
+        root: __dirname + '/pics/brandImages/',
         headers: {
             "accessToken": req.headers.accessToken
         }
     }
     console.log("i api");
-    res.sendFile(req.params.name + ".png", options, function (err)
-    {
+    res.sendFile(req.params.name + ".png", options, function (err) {
         console.log("i funk");
-        if (err)
-        {
+        if (err) {
             console.log("i err");
             console.log(err);
-        } else
-        {
+        } else {
             console.log("i not err");
             console.log('Sent: picture');
         }
     });
 });
 
-router.get("/info", function (req, res, next)
-{
+
+router.get("/image/:shopEmail", function (req, res, next) {
+    var options =
+        {
+            root: __dirname + '/pics/shopImages/',
+            headers: {
+                "accessToken": req.headers.accessToken
+            }
+        }
+    console.log("i api");
+    res.sendFile(req.params.shopEmail + ".png", options, function (err) {
+        console.log("i funk");
+        if (err) {
+            console.log("i err");
+            console.log(err);
+        } else {
+            console.log("i not err");
+            console.log('Sent: picture');
+        }
+    });
+});
+
+router.get("/info", function (req, res, next) {
     res.send("abekat").end();
 });
 
