@@ -64,6 +64,11 @@ function _getCoffeeBrand(CoffeeBrandID, callback) {
     })
 }
 
+function _getAllStoreCards(callback) {
+    klippekort.getallstorecards(function (data) {
+        return callback(data)
+    })
+};
 
 function _getAllCoffeeBrand(callback) {
 
@@ -720,6 +725,7 @@ module.exports = {
     buycard : _buycard,
     getmycards : _getmycards,
     getstorecards : _getstorecards,
+    getAllStoreCards : _getAllStoreCards
     usecard : _usecard,
     newstorecard : _newstorecard,
     updatestorecard : _updatestorecard,
