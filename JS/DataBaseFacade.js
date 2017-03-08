@@ -725,7 +725,7 @@ module.exports = {
     buycard : _buycard,
     getmycards : _getmycards,
     getstorecards : _getstorecards,
-    getAllStoreCards : _getAllStoreCards
+    getAllStoreCards : _getAllStoreCards,
     usecard : _usecard,
     newstorecard : _newstorecard,
     updatestorecard : _updatestorecard,
