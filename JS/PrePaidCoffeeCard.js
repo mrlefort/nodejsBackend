@@ -53,6 +53,10 @@ var shop = db.CoffeeShop();
 //     console.log(data)
 // })
 
+_getallstorecards( function(data){
+    console.log(data)
+})
+
 function _getmycards(userID, callback)
 {
 var allCards = [];
@@ -73,6 +77,28 @@ var log = function (inst) {
     }
 })
 };
+
+
+function _getallstorecards(callback)
+{
+    var allCards = [];
+
+    var log = function (inst) {
+
+        allCards.push(inst.get());
+    }
+    prePaidCoffeeCard.findAll().then(function (data, err) {
+        if (data !== null) {
+            data.forEach(log);
+            callback(allCards);
+        } else {
+            console.log("get all cards fejl ---- ")
+            console.log(err);
+            allCards = false;
+            callback(false);
+        }
+    })
+}
 
 function _getstorecards(coffeeBrandID, callback)
 {
@@ -355,5 +381,5 @@ function _buycard(coffeeCode, cardID, userID, callback) {
 }
 
 
-module.exports = {buycard: _buycard, usecard: _usecard, newstorecard : _newstorecard, updatestorecard : _updatestorecard, getstorecards : _getstorecards, getmycards : _getmycards, deletecard : _deletecard };
+module.exports = {getallstorecards : _getallstorecards, buycard: _buycard, usecard: _usecard, newstorecard : _newstorecard, updatestorecard : _updatestorecard, getstorecards : _getstorecards, getmycards : _getmycards, deletecard : _deletecard };
 
