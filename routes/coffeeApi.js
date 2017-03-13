@@ -325,7 +325,6 @@ router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
 
 // virker ikke...
 router.put("/klippekort/:prePaidCardId", function (req, res, next) {
-        if (req.decoded.data.roleId === 1) {
             facade.usecard(req.params.prePaidCardId, req.body.purhcasedAmount, req.body.userId, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
@@ -337,12 +336,6 @@ router.put("/klippekort/:prePaidCardId", function (req, res, next) {
                     }
                 }
             );
-
-        }
-        else {
-            res.status(401).send();
-        }
-
     }
 );
 
