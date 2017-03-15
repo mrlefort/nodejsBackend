@@ -41,8 +41,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-console.log("lige før cert!");
-app.use("/cert", certs);
+// console.log("lige før cert!");
+// app.use("/cert", certs);
 
 // passport.use(new Strategy(
 //     function (accessToken, cb) {
