@@ -23,6 +23,7 @@ router.get("/picture/:name", function (req, res, next) {
         } else {
             console.log("i not err");
             console.log('Sent: picture');
+
         }
     });
 });
