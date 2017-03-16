@@ -46,16 +46,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 var logPathEroor = path.join(__dirname,  'logs','serverError.log');
+console.log(logPathEroor);
 var logPath = path.join(__dirname, 'logs','serverLog.log');
-
+console.log(logPath);
 app.use(expressWinston.logger({
+
     transports: [
         // new winston.transports.Console({
         //     json: true,
         //     colorize: true
         // }),
         new (winston.transports.File)({
-            filename: logPath,
+            filename: process.env.OPENSHIFT_LOG_DIR+"serverLog.log",
             json: true,
             colorize: true
         })
@@ -155,7 +157,7 @@ app.use(expressWinston.errorLogger({
             colorize: true
         }),
         new (winston.transports.File)({
-            filename: logPathEroor,
+            filename: process.env.OPENSHIFT_LOG_DIR+"errorLog.log",
             json: true,
             colorize: true
         })

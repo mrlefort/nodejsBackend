@@ -464,8 +464,7 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
 
 function _buycard(CoffeeCode, CardID, userID, callback)
 {
-validate.valForNullsAndEmpty(function(data)
-{
+
     if(data == true)
     {
         klippekort.buycard(CoffeeCode, CardID, userID, function (data){
@@ -486,7 +485,7 @@ validate.valForNullsAndEmpty(function(data)
     }
 
 
-}, CoffeeCode, CardID, userID)
+
 }
 
 function _getmycards(userID, callback)
