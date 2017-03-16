@@ -49,20 +49,20 @@ var logPathEroor = path.join(__dirname,  'logs','serverError.log');
 console.log(logPathEroor);
 var logPath = path.join(__dirname, 'logs','serverLog.log');
 console.log(logPath);
-app.use(expressWinston.logger({
-
-    transports: [
-        // new winston.transports.Console({
-        //     json: true,
-        //     colorize: true
-        // }),
-        new (winston.transports.File)({
-            filename: process.env.OPENSHIFT_LOG_DIR+"serverLog.log",
-            json: true,
-            colorize: true
-        })
-    ]
-}));
+// app.use(expressWinston.logger({
+//
+//     transports: [
+//         // new winston.transports.Console({
+//         //     json: true,
+//         //     colorize: true
+//         // }),
+//         new (winston.transports.File)({
+//             filename: process.env.OPENSHIFT_LOG_DIR+"serverLog.log",
+//             json: true,
+//             colorize: true
+//         })
+//     ]
+// }));
 
 app.use('/login', login);
 
@@ -150,19 +150,19 @@ app.use('/api/coffee', coffee); // everything to do with Coffee brand, shop, sho
 app.use('/api/order', order); // order + orderitem --- DONE (testet og alt virker. manglede get all users func som er added og testet!)
 app.use('/api/housekeeping', houseKeeping);
 
-app.use(expressWinston.errorLogger({
-    transports: [
-        new winston.transports.Console({
-            json: true,
-            colorize: true
-        }),
-        new (winston.transports.File)({
-            filename: process.env.OPENSHIFT_LOG_DIR+"errorLog.log",
-            json: true,
-            colorize: true
-        })
-    ]
-}));
+// app.use(expressWinston.errorLogger({
+//     transports: [
+//         new winston.transports.Console({
+//             json: true,
+//             colorize: true
+//         }),
+//         new (winston.transports.File)({
+//             filename: process.env.OPENSHIFT_LOG_DIR+"errorLog.log",
+//             json: true,
+//             colorize: true
+//         })
+//     ]
+// }));
 
 
 // catch 404 and forward to error handler

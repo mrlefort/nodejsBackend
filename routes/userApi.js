@@ -245,10 +245,25 @@ router.put("/role/:roleId", function (req, res, next) {
 // WORKS
 router.put("/card/:LoyaltyCard", function (req, res, next) {
         var LoyaltyCardID = req.params.LoyaltyCard;
-
         facade.putLoyaltyCard(LoyaltyCardID, req.body.brandName, req.body.userId, req.body.numberOfCoffeesBought, function (status) {
                 if (status !== false) {
+                    res.writeHead(200, {"accessToken": req.headers.accessToken});
+                    res.write(JSON.stringify(status));
+                    res.status(200).send();
+                }
+                if (status === false) {
+                    res.status(500).send();
+                }
+            }
+        );
+    }
+);
 
+router.put("/cardRedeem/:LoyaltyCard", function (req, res, next) {
+        var LoyaltyCardID = req.params.LoyaltyCard;
+
+        facade.putLoyaltyCardRedeem(LoyaltyCardID, req.body.userId, req.body.numberOfCoffeeRedeems, function (status) {
+                if (status !== false) {
                     res.writeHead(200, {"accessToken": req.headers.accessToken});
                     res.write(JSON.stringify(status));
                     res.status(200).send();

@@ -148,7 +148,20 @@ function _putLoyaltyCard(LoyaltyCardID, brandName, userID, numberOfCoffeesBought
             })
         } else callback(false)
     })
+}
 
+function _putLoyaltyCardRedeem(LoyaltyCardID, userID, numberOfCoffeeRedeems, callback){
+    validate.valID(LoyaltyCardID, function (data) {
+        if (data) {
+            validate.valID(userID, function (data) {
+                if (data) {
+                    LoyaltyCards.putLoyaltyCardRedeem(LoyaltyCardID, userID, numberOfCoffeeRedeems, function (data2) {
+                        callback(data2)
+                    })
+                } else callback(false)
+            })
+        } else callback(false)
+    })
 }
 
 function _createRole(RoleN, callback) {
@@ -388,7 +401,6 @@ function _createOrderItem(orderId, coffeeKindId, quantity, callback) // This cre
 
 //COFFEESHOPUSER STARTS HERE
 function _createCoffeeShopUser(userEmail, coffeeShopEmail, callback) {
-
     validate.valEmail(userEmail, function (data) {
         if (data) {
             CoffeeShopUsers.createCoffeeShopUser(userEmail, coffeeShopEmail, function (data2) {
@@ -404,7 +416,6 @@ function _createCoffeeShopUser(userEmail, coffeeShopEmail, callback) {
 
 
 function _getAllCoffeeShopUserByCoffeeShop(coffeeShopId, callback) {
-
     CoffeeShopUsers.getAllCoffeeShopUserByCoffeeShop(coffeeShopId, function (data2) {
         callback(data2)
     })
@@ -416,44 +427,31 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
     validate.valID(userID, function (d) {
         if (d) {
             validate.valNumber(numberOfCoffeesBought, function (data) {
-
                 if (data) {
                     CoffeeShop.getCoffeeShopByCoffeeCode(coffeeCode, function (coffeeData) {
-
-
                         if (coffeeData) {
                             CoffeeBrand.getCoffeeBrand(coffeeData.brandName, function (brandData) {
-
-
                                 LoyaltyCards.getLoyaltyCardByUserAndBrand(userID, brandData.id, function (data) {
-
                                     if (!data) {
-
-
-                                        LoyaltyCards.createLoyaltyCard(coffeeData.brandName, userID, numberOfCoffeesBought, function (createData) {
+                                        LoyaltyCards.createLoyaltyCard(coffeeData.brandName, userID, numberOfCoffeesBought, brandData.numberOfCoffeeNeeded,  function (createData) {
                                             _createOrder(userID, coffeeData.id, 'android', function (orderData) {
                                                 _createOrderItem(orderData.id, null, numberOfCoffeesBought, function () {
-
                                                     return callback(createData);
                                                 })
-
                                             })
-
                                         })
                                     } else {
-                                        LoyaltyCards.addToNumberOfCoffeesBought(data.id, numberOfCoffeesBought, function (addData) {
+                                        LoyaltyCards.addToNumberOfCoffeesBought(data.id, numberOfCoffeesBought, brandData.numberOfCoffeeNeeded, function (addData) {
                                             _createOrder(userID, coffeeData.id, 'android', function (orderData) {
                                                 _createOrderItem(orderData.id, null, numberOfCoffeesBought, function () {
                                                     return callback(addData);
                                                 })
-
                                             })
                                         })
                                     }
                                 })
                             })
                         } else return callback(data)
-
                     })
                 } else return callback(data)
             })
@@ -492,7 +490,6 @@ function _getmycards(userID, callback)
 {
     validate.valForNullsAndEmpty(function (data)
     {
-
         if(data == true)
         {
             klippekort.getmycards(userID, function(data)
@@ -504,7 +501,6 @@ function _getmycards(userID, callback)
         {
             callback("den indtastede data skal være udfyldt!")
         }
-
     }, userID)
 
 }
@@ -734,5 +730,6 @@ module.exports = {
     putPremiumSubscriptionSetToCoffeeReady: _putPremiumSubscriptionSetToCoffeeReady,
     putPremiumSubscriptionSetToCoffeeNotReady: _putPremiumSubscriptionSetToCoffeeNotReady,
     getPremiumSubscription: _getPremiumSubscription,
-    getAllPremiumSubscriptions: _getAllPremiumSubscriptions
+    getAllPremiumSubscriptions: _getAllPremiumSubscriptions,
+    putLoyaltyCardRedeem: _putLoyaltyCardRedeem
 }; // Export Module

@@ -1,17 +1,17 @@
 ﻿var Sequelize = require('sequelize'); // Requires
 
- var sequelize = new Sequelize('keebintesttest', 'adminpSFsKaK', 'J6eSGhlw3F8P', {
-     host: process.env.OPENSHIFT_MYSQL_DB_HOST,
-     port: process.env.OPENSHIFT_MYSQL_DB_PORT,
-     dialect: 'mysql'
- }); // Establishing connection to the MySQL database schema called keebin
+ // var sequelize = new Sequelize('keebintesttest', 'adminpSFsKaK', 'J6eSGhlw3F8P', {
+ //     host: process.env.OPENSHIFT_MYSQL_DB_HOST,
+ //     port: process.env.OPENSHIFT_MYSQL_DB_PORT,
+ //     dialect: 'mysql'
+ // }); // Establishing connection to the MySQL database schema called keebin
 
 
-// var sequelize = new Sequelize('keebin', 'keebin', '1234', {
-//    host: "localhost",
-//    port: 3306,
-//    dialect: 'mysql'
-// }); // Establishing connection to the MySQL database schema called keebin
+var sequelize = new Sequelize('keebin', 'keebin', '1234', {
+   host: "localhost",
+   port: 3306,
+   dialect: 'mysql'
+}); // Establishing connection to the MySQL database schema called keebin
 
 sequelize.authenticate().then(function (err) {
     if (err) {
@@ -94,8 +94,8 @@ var loyaltyCards = sequelize.define('loyaltyCards', {
         type: Sequelize.BOOLEAN,
         Validate: {notNull: true}
     },
-    readyForFreeCoffee: {
-        type: Sequelize.BOOLEAN,
+    numberOfFreeCoffeeAvailable: {
+        type: Sequelize.INTEGER,
         Validate: {notNull: true}
     },
     timesUsed: {
