@@ -527,8 +527,7 @@ function _getstorecards(coffeebrandID, callback)
 function _usecard(prepaidcardID, purchasedamount, userID, callback)
 {
 
-        validate.valForNullsAndEmpty(function(data)
-        {
+
             if(data == true)
             {
             klippekort.usecard(prepaidcardID, purchasedamount, userID, function(data)
@@ -540,18 +539,18 @@ function _usecard(prepaidcardID, purchasedamount, userID, callback)
             {
                 callback("den indtastede data skal være udfyldt!")
             }
-        }, prepaidcardID, purchasedamount, userID)
+
 
 }
 
-function _newstorecard(price, name, count, brandID, callback)
+function _newstorecard(price, name, count, brandID, cents, callback)
 {
     validate.valForNullsAndEmpty(function(data)
     {
         if(data == true)
         {
 
-          klippekort.newstorecard(price, name, count, brandID, function(data)
+          klippekort.newstorecard(price, name, count, cents, brandID, function(data)
           {
             callback(data)
           })
@@ -560,15 +559,15 @@ function _newstorecard(price, name, count, brandID, callback)
         {
             callback("den indtastede data skal være udfyldt!")
         }
-    }, price, name, count, brandID)
+    }, price, name, count, cents, brandID)
 }
-function _updatestorecard(storecardid, newprice, newname, newcount, callback)
+function _updatestorecard(storecardid, newprice, newcents, newname, newcount, callback)
 {
     validate.valForNullsAndEmpty(function(data)
     {
         if(data == true)
         {
-          klippekort.updatestorecard(storecardid, newprice, newname, newcount, function (data)
+          klippekort.updatestorecard(storecardid, newprice, newcents, newname, newcount, function (data)
           {
               callback(data)
           })
@@ -577,7 +576,7 @@ function _updatestorecard(storecardid, newprice, newname, newcount, callback)
         {
             callback("den indtastede data skal være udfyldt!")
         }
-    }, storecardid, newprice, newname, newcount)
+    }, storecardid, newprice, newname, newcents, newcount)
 }
 
 

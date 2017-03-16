@@ -1,3 +1,4 @@
+
 var db = require('./DataBaseCreation.js');
 var conn = db.connect();
 
@@ -48,7 +49,7 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, numberOfCoff
     var runIfLoyaltyCardFoundFalse = function (duplicatecheck, callback) {
         // runIfRoleFoundFalse is the second function (the callback) - we feed RoleFound as a parameter and name is doesRoleExist
         if (duplicatecheck == false) {
-            let freeCoffee = 0
+            var freeCoffee = 0
             while (numberOfCoffeesBought >= numberOfCoffeeNeeded){
                 freeCoffee += 1
                 numberOfCoffeesBought = numberOfCoffeesBought - numberOfCoffeeNeeded
@@ -179,8 +180,8 @@ console.log("fuckdisshit - " + userId);
 
 function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, numberOfCoffeesNeededForFreeCoffee, callback) {
     loyaltyCards.find({where: {Id: LoyaltyCardID}}).then(function (data, err) {
-        let numberOfCoffeesBoughtSoFar
-        let freeCoffee = data.numberOfFreeCoffeeAvailable
+        var numberOfCoffeesBoughtSoFar
+        var freeCoffee = data.numberOfFreeCoffeeAvailable
         if (data === null) {
             console.log("something went wrong with editing " + LoyaltyCardID + " and gave an error - " + err);
             callback(false);
@@ -238,7 +239,7 @@ function _putLoyaltyCardRedeem(LoyaltyCardID, userID, numberOfCoffeeRedeems, cal
         }
         else {
             console.log("Trying to update... " + LoyaltyCardID)
-            let numberOfRedeemsAvailable = data.numberOfFreeCoffeeAvailable
+            var numberOfRedeemsAvailable = data.numberOfFreeCoffeeAvailable
             if ((numberOfRedeemsAvailable - numberOfCoffeeRedeems) >= 0) {
                 numberOfRedeemsAvailable = numberOfRedeemsAvailable - numberOfCoffeeRedeems
                 data.updateAttributes({

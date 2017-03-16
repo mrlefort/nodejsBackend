@@ -220,6 +220,10 @@ var PrePaidCoffeeCard = sequelize.define('PrePaidCoffeeCard', {
         type: Sequelize.INTEGER,
         Validate: {notNull: true}
     },
+    cents: {
+      type: Sequelize.INTEGER(2),
+        Validate: {notNull: true}
+    },
     name: {
         type: Sequelize.STRING,
         Validate: {notNull: true}
@@ -348,7 +352,7 @@ function _PrePaidCoffeeCard()
     return PrePaidCoffeeCard
 }
 
-drop = 2;
+
 if(drop == 1)
 {
     sequelize

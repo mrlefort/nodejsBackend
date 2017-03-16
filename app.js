@@ -49,6 +49,8 @@ var logPathEroor = path.join(__dirname,  'logs','serverError.log');
 console.log(logPathEroor);
 var logPath = path.join(__dirname, 'logs','serverLog.log');
 console.log(logPath);
+
+// skal kommenteres ind igen!
 // app.use(expressWinston.logger({
 //
 //     transports: [
@@ -150,6 +152,7 @@ app.use('/api/coffee', coffee); // everything to do with Coffee brand, shop, sho
 app.use('/api/order', order); // order + orderitem --- DONE (testet og alt virker. manglede get all users func som er added og testet!)
 app.use('/api/housekeeping', houseKeeping);
 
+// skal kommenteres ind igen!
 // app.use(expressWinston.errorLogger({
 //     transports: [
 //         new winston.transports.Console({

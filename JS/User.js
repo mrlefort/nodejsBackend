@@ -67,6 +67,11 @@ function _createUser(firstName, lastName, email, role, birthday, sex, password, 
         }
     })
 }
+var lol;
+_putUser("ab@gmail.com", "undefined", "", "", "", "", "123", "", function(LOL)
+{
+    console.log(LOL)
+})
 
 
 function _putUser(userEmail, firstName, lastName, email, role, birthday, sex, password, callback) {
@@ -78,18 +83,56 @@ function _putUser(userEmail, firstName, lastName, email, role, birthday, sex, pa
             if (data !== null) {
                 console.log("user found - ready to edit");
 
+                var firstname = data.firstName;
+                var lastname = data.lastName;
+                var ema = data.email;
+                var bday = data.birthday;
+                var sexy = data.sex;
+                var pass = data.password;
+
+
+                if(firstName != null && firstName != undefined && firstName != "")
+                {
+                     firstname = firstName;
+                }
+
+                if(lastName != null && lastName != undefined && lastName != "")
+                {
+                     lastname = lastName;
+                }
+
+                if(email != null && email != undefined && email != "")
+                {
+                     ema = email;
+                }
+
+                if(birthday != null && birthday != undefined && birthday != "")
+                {
+                     bday = birthday;
+                }
+
+                if(sex != null && sex != undefined && sex != "")
+                {
+                    sexy = sex;
+                }
+
+                if(email != null && email != undefined && email != "")
+                {
+                    pass = password;
+                }
+
+
 
                 return sequelize.transaction(function (t) {
 
                     // chain all your queries here. make sure you return them.
                     return data.updateAttributes({
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        roleId: role,
-                        birthday: birthday,
-                        sex: sex,
-                        password: password
+                        firstName: firstname,
+                        lastName: lastname,
+                        email: ema,
+                        birthday: bday,
+                        sex: sexy,
+                        password: pass
 
                     }, {transaction: t})
 

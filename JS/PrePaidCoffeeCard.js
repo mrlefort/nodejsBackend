@@ -147,7 +147,7 @@ function _deletecard(ID, callback) {
 
 }
 
-function _updatestorecard(id, newprice, newname, newcount, callback)
+function _updatestorecard(id, newprice, newcents, newname, newcount, callback)
 {
     prePaidCoffeeCard.find({where: {id: id}}).then(function (data) {
 
@@ -156,6 +156,7 @@ function _updatestorecard(id, newprice, newname, newcount, callback)
             return conn.transaction(function (t) {
                 return data.updateAttributes({
                     price: newprice,
+                    cents: newcents,
                     name: newname,
                     count: newcount
                 }, {transaction: t})
@@ -174,7 +175,7 @@ function _updatestorecard(id, newprice, newname, newcount, callback)
 
 }
 
-function _newstorecard(price, name, count, brandID, callback)
+function _newstorecard(price, name, count, brandID, cents, callback)
 {
     prePaidCoffeeCard.find({where: {price: price, name: name, coffeeBrandId: brandID, count: count}}).then(function (data) {
 
@@ -182,6 +183,7 @@ function _newstorecard(price, name, count, brandID, callback)
             return conn.transaction(function (t) {
                 return prePaidCoffeeCard.create({
                     price: price,
+                    cents: cents,
                     name: name,
                     count: count,
                     coffeeBrandId: brandID

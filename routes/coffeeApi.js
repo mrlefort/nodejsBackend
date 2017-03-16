@@ -90,7 +90,7 @@ router.post("/klippekort/new", function (req, res, next) {
 // virker
 router.post("/klippekortvariation/new", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
-            facade.newstorecard(req.body.price, req.body.name, req.body.uses, req.body.brandId, function (status) {
+            facade.newstorecard(req.body.price, req.body.name, req.body.uses, req.body.brandId, req.body.cents, function (status) {
                     if (status === true) {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
                         res.status(200).send();
@@ -303,7 +303,7 @@ router.get("/allshopusers/:shopID", function (req, res, next) {
 // virker
 router.put("/klippekortvariation/:storeCardId", function (req, res, next) {
         if (req.decoded.data.roleId === 1) {
-            facade.updatestorecard(req.params.storeCardId, req.body.newPrice, req.body.newName, req.body.newCount, function (status) {
+            facade.updatestorecard(req.params.storeCardId, req.body.newPrice, req.body.newcents, req.body.newName, req.body.newCount, function (status) {
                     console.log("her er status: " + status)
                     if (status !== false) {
                         res.writeHead(200, {"Content-Type": "application/json", "accessToken": req.headers.accessToken});
