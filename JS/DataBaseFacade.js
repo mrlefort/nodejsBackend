@@ -148,7 +148,6 @@ function _putLoyaltyCard(LoyaltyCardID, brandName, userID, numberOfCoffeesBought
             })
         } else callback(false)
     })
-
 }
 
 function _createRole(RoleN, callback) {
@@ -411,6 +410,10 @@ function _getAllCoffeeShopUserByCoffeeShop(coffeeShopId, callback) {
 
 };
 
+_coffeeBought(3, "steffen", 11, function (data) {
+    
+})
+
 function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
     //Springer steppet med CoffeeCode over. den skal finde Brandname for mig
     validate.valID(userID, function (d) {
@@ -430,7 +433,7 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
                                     if (!data) {
 
 
-                                        LoyaltyCards.createLoyaltyCard(coffeeData.brandName, userID, numberOfCoffeesBought, function (createData) {
+                                        LoyaltyCards.createLoyaltyCard(coffeeData.brandName, userID, numberOfCoffeesBought, brandData.numberOfCoffeeNeeded,  function (createData) {
                                             _createOrder(userID, coffeeData.id, 'android', function (orderData) {
                                                 _createOrderItem(orderData.id, null, numberOfCoffeesBought, function () {
 
@@ -441,7 +444,8 @@ function _coffeeBought(userID, coffeeCode, numberOfCoffeesBought, callback) {
 
                                         })
                                     } else {
-                                        LoyaltyCards.addToNumberOfCoffeesBought(data.id, numberOfCoffeesBought, function (addData) {
+
+                                        LoyaltyCards.addToNumberOfCoffeesBought(data.id, numberOfCoffeesBought, brandData.numberOfCoffeeNeeded, function (addData) {
                                             _createOrder(userID, coffeeData.id, 'android', function (orderData) {
                                                 _createOrderItem(orderData.id, null, numberOfCoffeesBought, function () {
                                                     return callback(addData);

@@ -33,12 +33,13 @@ function _deleteLoyaltyCard(ID, callback) {
 
 }
 
-function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcallback) {
+function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, numberOfCoffeeNeeded, newLoyalcallback) {
     this.brandName = brandId;
     this.numberOfCoffeesBought = numberOfCoffeesBought; //loyaltyCards bliver lavet når man første gang trykker "tilføj kop" til en branch.
     this.userID = userID;
     this.readyForFreeCoffee = false;
-    var timesUsed = 0
+    var timesUsed = 1
+
 
 
     var returnstatement;
@@ -47,11 +48,16 @@ function _createLoyaltyCard(brandId, userID, numberOfCoffeesBought, newLoyalcall
     var runIfLoyaltyCardFoundFalse = function (duplicatecheck, callback) {
         // runIfRoleFoundFalse is the second function (the callback) - we feed RoleFound as a parameter and name is doesRoleExist
         if (duplicatecheck == false) {
+            let freeCoffee = 0
+            while (numberOfCoffeesBought >= numberOfCoffeeNeeded){
+                freeCoffee += 1
+                numberOfCoffeesBought = numberOfCoffeesBought - numberOfCoffeeNeeded
+            }
             return conn.transaction(function (t) {
                 return loyaltyCards.create({
                     numberOfCoffeesBought: numberOfCoffeesBought,
 
-                    userId: userID, brandName: brandId, isValid: true, readyForFreeCoffee: false, timesUsed: timesUsed
+                    userId: userID, brandName: brandId, isValid: true, numberOfFreeCoffeeAvailable: freeCoffee, timesUsed: timesUsed
 
 
                 }, {transaction: t})
@@ -171,25 +177,29 @@ console.log("fuckdisshit - " + userId);
 
 };  // this one "gets" all CoffeeShops.
 
-function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, callback) {
+function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, numberOfCoffeesNeededForFreeCoffee, callback) {
     loyaltyCards.find({where: {Id: LoyaltyCardID}}).then(function (data, err) {
+        let numberOfCoffeesBoughtSoFar
+        let freeCoffee = data.numberOfFreeCoffeeAvailable
         if (data === null) {
-
-            console.log("something went wrong with editting " + LoyaltyCardID + " and gave an error - " + err);
+            console.log("something went wrong with editing " + LoyaltyCardID + " and gave an error - " + err);
             callback(false);
-
         }
         else {
-            //logik her til tilføjelse af kaffe til ultimatecounter
-            // var updatedTimesUsed = ++data.timesUsed
+
             console.log("Trying to update... " + LoyaltyCardID)
-            // data.updateatt = update given attributes in the object
-            // attribute : attributevalue to edit to.
-            console.log('vi er i add og data er:' + LoyaltyCardID, numberOfCoffeesBought)
-             data.numberOfCoffeesBought = "" + (parseInt(data.numberOfCoffeesBought) + parseInt(numberOfCoffeesBought));
+            console.log('vi er i _addToNumberOfCoffeesBought og data er:' + LoyaltyCardID, numberOfCoffeesBought)
+
+            numberOfCoffeesBoughtSoFar = "" + (parseInt(data.numberOfCoffeesBought) + parseInt(numberOfCoffeesBought));
+            while (numberOfCoffeesBoughtSoFar >= numberOfCoffeesNeededForFreeCoffee){
+                freeCoffee += 1
+                numberOfCoffeesBoughtSoFar = numberOfCoffeesBoughtSoFar - numberOfCoffeesNeededForFreeCoffee
+            }
+
             data.updateAttributes({
-                numberOfCoffeesBought: data.numberOfCoffeesBought,
-                timesUsed: ++data.timesUsed
+                numberOfCoffeesBought: numberOfCoffeesBoughtSoFar,
+                timesUsed: ++data.timesUsed,
+                numberOfFreeCoffeeAvailable: freeCoffee
             }).then(function (result) {
                 console.log("LoyaltyCard " + LoyaltyCardID + " has been updated!");
                 callback(true);
