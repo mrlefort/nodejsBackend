@@ -186,7 +186,6 @@ function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, numbe
             callback(false);
         }
         else {
-
             console.log("Trying to update... " + LoyaltyCardID)
             console.log('vi er i _addToNumberOfCoffeesBought og data er:' + LoyaltyCardID, numberOfCoffeesBought)
 
@@ -195,7 +194,6 @@ function _addToNumberOfCoffeesBought(LoyaltyCardID, numberOfCoffeesBought, numbe
                 freeCoffee += 1
                 numberOfCoffeesBoughtSoFar = numberOfCoffeesBoughtSoFar - numberOfCoffeesNeededForFreeCoffee
             }
-
             data.updateAttributes({
                 numberOfCoffeesBought: numberOfCoffeesBoughtSoFar,
                 timesUsed: ++data.timesUsed,
@@ -232,6 +230,31 @@ function _putLoyaltyCard(LoyaltyCardID, brandName, userID, numberOfCoffeesBought
     });
 }
 
+function _putLoyaltyCardRedeem(LoyaltyCardID, userID, numberOfCoffeeRedeems, callback) {
+    loyaltyCards.find({where: {Id: LoyaltyCardID}}).then(function (data, err) {
+        if (data === null) {
+            console.log("something went wrong with editting " + LoyaltyCardID + " and gave an error - " + err);
+            callback(false);
+        }
+        else {
+            console.log("Trying to update... " + LoyaltyCardID)
+            let numberOfRedeemsAvailable = data.numberOfFreeCoffeeAvailable
+            if ((numberOfRedeemsAvailable - numberOfCoffeeRedeems) >= 0) {
+                numberOfRedeemsAvailable = numberOfRedeemsAvailable - numberOfCoffeeRedeems
+                data.updateAttributes({
+                    numberOfFreeCoffeeAvailable: numberOfRedeemsAvailable
+                }).then(function (result) {
+                    console.log("LoyaltyCard " + LoyaltyCardID + " has been updated with numberOfRedeems!");
+                    callback(result);
+                })
+            } else {
+                console.log("bruger med userId: " + userID + " har ikke nok coffeeAvailable som han/hun forsøger at redeem")
+                callback(false)
+            }
+        }
+    });
+}
+
 /*
  function _a (ID, callback) {
  loyaltyCards.find({where: {Id: ID}}).then(function (data, err) { // we have run the callback inside the .then
@@ -250,7 +273,8 @@ module.exports = {
     getLoyaltyCard: _getLoyaltyCard,
     putLoyaltyCard: _putLoyaltyCard,
     getLoyaltyCardByUserAndBrand: _getLoyaltyCardByUserAndBrand,
-    addToNumberOfCoffeesBought: _addToNumberOfCoffeesBought
+    addToNumberOfCoffeesBought: _addToNumberOfCoffeesBought,
+    putLoyaltyCardRedeem: _putLoyaltyCardRedeem
 }; // Export Module/**
 
 
